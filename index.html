@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MEKATRONICS — Vijay Subhash Meka</title>
+<link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Exo+2:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ── ROOT ── */
+:root{--amber:#F5A000;--teal:#00D4AA;--bg:#06060E;--bg2:#0D0D1C;--bg3:#13132A;--border:rgba(245,160,0,0.18);--text:#E8E8F5;--muted:#8888AA}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Exo 2',sans-serif;font-size:16px;line-height:1.7;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(245,160,0,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(245,160,0,0.04) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;z-index:0}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:0 5%;height:68px;background:rgba(6,6,14,0.96);border-bottom:1px solid var(--border);backdrop-filter:blur(12px)}
+.logo{font-family:'Audiowide',sans-serif;font-size:1.3rem;letter-spacing:3px;background:linear-gradient(90deg,var(--amber),var(--teal));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-decoration:none}
+.nav-links{display:flex;gap:1.6rem;list-style:none}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:0.78rem;letter-spacing:1.2px;text-transform:uppercase;transition:color 0.3s;font-weight:500}
+.nav-links a:hover{color:var(--amber)}
+.nav-cta{background:var(--amber)!important;color:#000!important;padding:0.4rem 1.1rem;border-radius:4px;font-weight:700!important}
+.nav-cta:hover{background:var(--teal)!important;color:#000!important}
+.hamburger{display:none;background:none;border:1px solid var(--border);color:var(--amber);padding:6px 10px;border-radius:5px;font-size:1.1rem;cursor:pointer}
+.mobile-menu{display:none;position:fixed;top:68px;left:0;right:0;background:rgba(6,6,14,0.98);border-bottom:1px solid var(--border);z-index:999;padding:1rem 5%;flex-direction:column;gap:0}
+.mobile-menu a{color:var(--muted);text-decoration:none;font-size:0.88rem;letter-spacing:1px;text-transform:uppercase;padding:0.75rem 0;border-bottom:1px solid var(--border);transition:color 0.2s}
+.mobile-menu a:hover{color:var(--amber)}
+.mobile-menu a:last-child{color:var(--amber);border-bottom:none}
+
+/* ── SHARED BUTTONS ── */
+.btn-primary{background:var(--amber);color:#000;padding:0.75rem 1.6rem;border-radius:5px;text-decoration:none;font-weight:700;font-size:0.86rem;letter-spacing:1px;transition:all 0.3s;display:inline-block;border:none;cursor:pointer;font-family:'Exo 2',sans-serif}
+.btn-primary:hover{background:var(--teal);transform:translateY(-2px)}
+.btn-outline{border:1.5px solid var(--amber);color:var(--amber);padding:0.75rem 1.6rem;border-radius:5px;text-decoration:none;font-weight:600;font-size:0.86rem;letter-spacing:1px;transition:all 0.3s;display:inline-block;background:none;cursor:pointer;font-family:'Exo 2',sans-serif}
+.btn-outline:hover{background:rgba(245,160,0,0.1);transform:translateY(-2px)}
+
+/* ── SECTION BASE ── */
+section{position:relative;z-index:1;padding:85px 5%}
+.stag{font-family:'Space Mono',monospace;font-size:0.7rem;letter-spacing:3px;text-transform:uppercase;color:var(--teal);margin-bottom:0.6rem;display:block}
+.stitle{font-family:'Audiowide',sans-serif;font-size:clamp(1.45rem,3.2vw,2.3rem);color:#fff;margin-bottom:0.7rem;letter-spacing:1px}
+.ssub{color:var(--muted);max-width:570px;margin-bottom:2.8rem;font-weight:300}
+.divider{width:52px;height:3px;background:linear-gradient(90deg,var(--amber),var(--teal));margin-bottom:1.1rem;border-radius:2px}
+
+/* ── HERO ── */
+#home{position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:100px 5% 0;overflow:hidden}
+.hero-glow{position:absolute;width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(245,160,0,0.09) 0%,transparent 70%);top:40%;left:45%;transform:translate(-50%,-50%);pointer-events:none}
+.hero-inner{position:relative;z-index:1;max-width:880px}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(245,160,0,0.08);border:1px solid rgba(245,160,0,0.25);padding:6px 16px;border-radius:30px;font-size:0.74rem;letter-spacing:2px;text-transform:uppercase;color:var(--amber);margin-bottom:1.8rem;font-family:'Space Mono',monospace}
+.pulse{width:7px;height:7px;border-radius:50%;background:var(--teal);animation:pulse 2s infinite;flex-shrink:0}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(1.5)}}
+.hero-label{font-family:'Space Mono',monospace;font-size:0.76rem;color:var(--muted);letter-spacing:2px;margin-bottom:0.4rem}
+.hero-name{font-family:'Audiowide',sans-serif;font-size:clamp(2rem,5.5vw,4.5rem);line-height:1.1;letter-spacing:2px;margin-bottom:0.5rem;color:#fff}
+.hero-brand{font-family:'Audiowide',sans-serif;font-size:clamp(1.3rem,3.5vw,2.8rem);background:linear-gradient(90deg,var(--amber),var(--teal));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:1.4rem;letter-spacing:6px}
+.hero-tagline{font-size:clamp(0.94rem,1.8vw,1.12rem);color:var(--muted);max-width:590px;margin-bottom:2.3rem;font-weight:300}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap}
+.hero-stats{display:flex;gap:2.8rem;margin-top:3rem;padding-top:1.8rem;border-top:1px solid var(--border);flex-wrap:wrap}
+.stat-num{font-family:'Audiowide',sans-serif;font-size:1.7rem;color:var(--amber);display:block}
+.stat-label{font-size:0.73rem;color:var(--muted);letter-spacing:1px;text-transform:uppercase}
+
+/* ── GALLERY ── */
+.gallery-wrap{position:relative;z-index:1;padding:60px 0 70px;background:var(--bg)}
+.gallery-header{padding:0 5%;margin-bottom:2rem}
+.gallery-stage{position:relative}
+/* viewport clips the sliding track */
+.gallery-viewport{overflow:hidden;padding:4px 0}
+.gallery-track{display:flex;gap:1.4rem;padding:0 5%;transition:transform 0.55s cubic-bezier(0.4,0,0.2,1);will-change:transform}
+.gallery-slide{flex:0 0 calc(33.333% - 1rem);min-width:220px}
+.gcard{border-radius:12px;border:1px solid var(--border);height:270px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;transition:transform 0.3s,border-color 0.3s;cursor:default}
+.gcard:hover{transform:translateY(-5px);border-color:rgba(245,160,0,0.5)}
+.gart{font-size:5rem;opacity:0.2;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);user-select:none;transition:opacity 0.3s}
+.gcard:hover .gart{opacity:0.1}
+.goverlay{position:absolute;bottom:0;left:0;right:0;padding:1.3rem;background:linear-gradient(transparent,rgba(0,0,0,0.88))}
+.gcat{font-size:0.64rem;letter-spacing:2px;color:var(--teal);font-family:'Space Mono',monospace;display:block;margin-bottom:0.3rem}
+.goverlay h3{color:#fff;font-weight:600;font-size:0.92rem;margin-bottom:0.2rem}
+.goverlay p{color:rgba(255,255,255,0.55);font-size:0.76rem}
+/* ── GALLERY PREV/NEXT: absolutely centered on sides ── */
+.gnavbtn{position:absolute;top:50%;transform:translateY(-50%);z-index:10;width:46px;height:46px;border-radius:50%;background:rgba(6,6,14,0.82);border:1.5px solid rgba(245,160,0,0.4);color:var(--amber);font-size:1.5rem;cursor:pointer;transition:all 0.25s;display:flex;align-items:center;justify-content:center;line-height:1;backdrop-filter:blur(6px)}
+.gnavbtn:hover{background:rgba(245,160,0,0.2);border-color:var(--amber);transform:translateY(-50%) scale(1.08)}
+.gnavbtn.gprev{left:calc(5% - 23px)}
+.gnavbtn.gnext{right:calc(5% - 23px)}
+/* dots */
+.gdots-row{display:flex;justify-content:center;gap:7px;margin-top:1.4rem}
+.gdot{width:8px;height:8px;border-radius:50%;background:rgba(245,160,0,0.22);border:none;cursor:pointer;transition:all 0.3s;padding:0}
+.gdot.active{background:var(--amber);width:24px;border-radius:4px}
+
+/* ── ABOUT ── */
+#about{background:var(--bg2)}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start}
+.about-text p{color:var(--muted);margin-bottom:1rem}
+.about-text strong{color:var(--amber);font-weight:600}
+.vision-box{background:var(--bg3);border:1px solid var(--border);border-left:3px solid var(--amber);padding:1.5rem;border-radius:0 6px 6px 0;margin-top:1.6rem}
+.vision-box h4{font-family:'Audiowide',sans-serif;font-size:0.8rem;color:var(--amber);margin-bottom:0.6rem;letter-spacing:1px}
+.vision-box p{color:var(--muted);font-size:0.88rem;margin:0}
+.skills-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.75rem}
+.skill-chip{background:var(--bg3);border:1px solid var(--border);padding:0.65rem 0.95rem;border-radius:6px;font-size:0.82rem;display:flex;align-items:center;gap:8px;color:var(--text);transition:border-color 0.3s}
+.skill-chip:hover{border-color:var(--amber)}
+.sdot{width:7px;height:7px;border-radius:50%;background:var(--teal);flex-shrink:0}
+
+/* ── SERVICES ── */
+.svc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.3rem}
+/* KEY FIX: flex column so CTA always sticks to bottom */
+.svc-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:1.7rem;transition:all 0.3s;position:relative;overflow:hidden;display:flex;flex-direction:column}
+.svc-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--amber),var(--teal));opacity:0;transition:opacity 0.3s}
+.svc-card:hover{border-color:rgba(245,160,0,0.4);transform:translateY(-4px)}
+.svc-card:hover::before{opacity:1}
+.svc-icon{width:48px;height:48px;background:rgba(245,160,0,0.08);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.35rem;margin-bottom:1rem;border:1px solid rgba(245,160,0,0.17)}
+.svc-card h3{font-family:'Audiowide',sans-serif;font-size:0.9rem;color:#fff;margin-bottom:0.5rem}
+.svc-card .svc-problem{color:var(--muted);font-size:0.8rem;margin-bottom:0.6rem;font-style:italic}
+.svc-card .svc-desc{color:var(--muted);font-size:0.84rem;margin-bottom:0.9rem}
+.svc-includes{display:flex;flex-direction:column;gap:4px;margin-bottom:0.9rem}
+.svc-includes div{font-size:0.78rem;color:var(--muted);display:flex;gap:8px;align-items:flex-start}
+.svc-includes span{color:var(--teal);flex-shrink:0;margin-top:2px}
+.svc-bestfor{font-size:0.72rem;color:var(--muted);margin-bottom:1rem}
+.svc-bestfor b{color:var(--amber)}
+/* auto margin pushes CTA to bottom */
+.svc-card .svc-cta{margin-top:auto}
+.svc-cta-btn{display:inline-block;background:var(--amber);color:#000;padding:0.6rem 1.2rem;border-radius:5px;text-decoration:none;font-weight:700;font-size:0.8rem;letter-spacing:0.8px;transition:all 0.3s;border:none;cursor:pointer;font-family:'Exo 2',sans-serif}
+.svc-cta-btn:hover{background:var(--teal);transform:translateY(-2px)}
+
+/* ── PROJECTS ── */
+#projects{background:var(--bg2)}
+.tabs{display:flex;gap:0;margin-bottom:1.8rem;border-bottom:1px solid var(--border);flex-wrap:wrap}
+.tabbtn{background:none;border:none;color:var(--muted);font-family:'Exo 2',sans-serif;font-size:0.82rem;padding:0.65rem 1.2rem;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all 0.25s;white-space:nowrap}
+.tabbtn.active{color:var(--amber);border-bottom-color:var(--amber)}
+.tabbtn:hover{color:#fff}
+.tabcontent{display:none}
+.tabcontent.active{display:block}
+.proj-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:1.2rem}
+.proj-card{background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:1.5rem;transition:all 0.3s}
+.proj-card:hover{border-color:rgba(0,212,170,0.38);transform:translateY(-3px)}
+.pstatus{display:inline-block;font-size:0.66rem;padding:3px 10px;border-radius:20px;margin-bottom:0.85rem;letter-spacing:1px;font-family:'Space Mono',monospace}
+.s-active{background:rgba(0,212,170,0.1);color:var(--teal);border:1px solid rgba(0,212,170,0.28)}
+.s-done{background:rgba(245,160,0,0.1);color:var(--amber);border:1px solid rgba(245,160,0,0.28)}
+.s-future{background:rgba(180,180,255,0.07);color:#aab;border:1px solid rgba(180,180,255,0.14)}
+.proj-card h3{font-family:'Audiowide',sans-serif;font-size:0.88rem;color:#fff;margin-bottom:0.5rem}
+.proj-card p{color:var(--muted);font-size:0.83rem}
+
+/* FORMS (shared) */
+.idea-form{background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:2rem;max-width:680px}
+.idea-form h3{font-family:'Audiowide',sans-serif;color:#fff;margin-bottom:0.35rem;font-size:0.93rem}
+.idea-form .fdesc{color:var(--muted);font-size:0.84rem;margin-bottom:1.5rem}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:0.85rem;margin-bottom:0.85rem}
+.fgroup{display:flex;flex-direction:column;gap:5px}
+.fgroup label{font-size:0.7rem;color:var(--muted);letter-spacing:1px;text-transform:uppercase}
+.fgroup input,.fgroup textarea,.fgroup select{background:var(--bg2);border:1px solid var(--border);border-radius:6px;color:var(--text);font-family:'Exo 2',sans-serif;font-size:0.87rem;padding:0.68rem 0.95rem;outline:none;transition:border-color 0.3s;width:100%}
+.fgroup input:focus,.fgroup textarea:focus,.fgroup select:focus{border-color:var(--amber)}
+.fgroup textarea{min-height:100px;resize:vertical}
+.fgroup select option{background:var(--bg2)}
+.frow-full{margin-bottom:0.85rem}
+
+/* VOTE */
+.vote-item{background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:1.3rem;display:flex;align-items:center;gap:1.3rem;margin-bottom:0.85rem;transition:border-color 0.3s}
+.vote-item:hover{border-color:rgba(245,160,0,0.28)}
+.vcount{text-align:center;min-width:56px}
+.vnum{font-family:'Audiowide',sans-serif;font-size:1.4rem;color:var(--amber);display:block}
+.vlabel{font-size:0.63rem;color:var(--muted);letter-spacing:1px}
+.vinfo{flex:1}
+.vinfo h4{color:#fff;font-weight:600;margin-bottom:0.22rem;font-size:0.9rem}
+.vinfo p{color:var(--muted);font-size:0.8rem}
+.vbtn{background:rgba(245,160,0,0.09);border:1px solid rgba(245,160,0,0.28);color:var(--amber);padding:0.42rem 1rem;border-radius:6px;font-family:'Exo 2',sans-serif;font-size:0.78rem;cursor:pointer;white-space:nowrap;font-weight:600;transition:all 0.3s}
+.vbtn:hover{background:rgba(245,160,0,0.2)}
+.vbtn.voted{background:rgba(0,212,170,0.09);border-color:rgba(0,212,170,0.28);color:var(--teal);cursor:default}
+
+/* ── LEARN — FOLDER/DIRECTORY SYSTEM ── */
+#learn{background:var(--bg)}
+.learn-path{display:flex;align-items:center;gap:8px;font-family:'Space Mono',monospace;font-size:0.72rem;color:var(--muted);margin-bottom:2rem;padding:0.6rem 1rem;background:var(--bg3);border:1px solid var(--border);border-radius:6px;flex-wrap:wrap}
+.learn-path .path-sep{color:var(--border)}
+.learn-path .path-active{color:var(--amber)}
+.folder-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.2rem}
+/* Folder card */
+.folder-card{border-radius:0 10px 10px 10px;border:1px solid var(--border);overflow:hidden;transition:border-color 0.3s;background:var(--bg2);cursor:pointer;position:relative}
+.folder-card:hover{border-color:rgba(245,160,0,0.45)}
+.folder-card.open{border-color:var(--amber)}
+/* Folder tab on top-left — like a real folder */
+.folder-tab{position:absolute;top:-1px;left:0;background:var(--bg2);border:1px solid var(--border);border-bottom:none;border-radius:8px 8px 0 0;padding:4px 14px;font-size:0.65rem;font-family:'Space Mono',monospace;letter-spacing:1.5px;text-transform:uppercase;font-weight:600;color:var(--teal);margin-left:14px;margin-top:-18px;pointer-events:none}
+.folder-card.open .folder-tab{background:rgba(245,160,0,0.1);border-color:var(--amber);color:var(--amber)}
+.folder-header{padding:1.4rem 1.4rem 0}
+.folder-icon-row{display:flex;align-items:center;gap:12px;margin-bottom:1rem}
+.folder-emoji{font-size:2rem;line-height:1}
+.folder-meta{flex:1}
+.folder-name{font-family:'Audiowide',sans-serif;font-size:0.95rem;color:#fff;margin-bottom:0.2rem}
+.folder-count{font-size:0.72rem;color:var(--muted);font-family:'Space Mono',monospace}
+.folder-desc{font-size:0.83rem;color:var(--muted);padding:0 1.4rem;line-height:1.6;margin-bottom:1rem}
+.folder-footer{padding:0.8rem 1.4rem;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.folder-status{font-size:0.68rem;font-family:'Space Mono',monospace;letter-spacing:1px;padding:3px 9px;border-radius:20px}
+.fs-active{background:rgba(0,212,170,0.08);color:var(--teal);border:1px solid rgba(0,212,170,0.2)}
+.fs-new{background:rgba(245,160,0,0.1);color:var(--amber);border:1px solid rgba(245,160,0,0.3)}
+.fs-soon{background:rgba(180,180,255,0.06);color:#aab;border:1px solid rgba(180,180,255,0.14)}
+.folder-toggle{font-size:0.72rem;font-family:'Space Mono',monospace;color:var(--muted);display:flex;align-items:center;gap:5px;transition:color 0.2s}
+.folder-card.open .folder-toggle{color:var(--amber)}
+.folder-arrow{transition:transform 0.3s;display:inline-block}
+.folder-card.open .folder-arrow{transform:rotate(90deg)}
+
+/* Folder contents panel */
+.folder-contents{display:none;border-top:1px solid var(--border);background:var(--bg3)}
+.folder-card.open .folder-contents{display:block}
+.file-list{padding:0.6rem 0}
+.file-item{display:flex;align-items:center;gap:10px;padding:0.65rem 1.4rem;transition:background 0.2s;text-decoration:none;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.03)}
+.file-item:last-child{border-bottom:none}
+.file-item:hover{background:rgba(245,160,0,0.05)}
+.file-type-icon{width:30px;height:30px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:0.9rem;flex-shrink:0}
+.ft-article{background:rgba(245,160,0,0.1);border:1px solid rgba(245,160,0,0.2)}
+.ft-video{background:rgba(0,212,170,0.1);border:1px solid rgba(0,212,170,0.2)}
+.ft-image{background:rgba(127,119,221,0.1);border:1px solid rgba(127,119,221,0.2)}
+.ft-pdf{background:rgba(240,153,123,0.15);border:1px solid rgba(240,153,123,0.25)}
+.ft-soon{background:rgba(180,180,255,0.04);border:1px solid rgba(180,180,255,0.1)}
+.file-info{flex:1;min-width:0}
+.file-name{font-size:0.85rem;color:#fff;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.file-meta{font-size:0.7rem;color:var(--muted);font-family:'Space Mono',monospace;margin-top:1px}
+.file-action{font-size:0.7rem;color:var(--amber);font-family:'Space Mono',monospace;flex-shrink:0;padding:2px 8px;border:1px solid rgba(245,160,0,0.25);border-radius:4px}
+.file-action.soon{color:var(--muted);border-color:var(--border)}
+.folder-empty{padding:1.5rem 1.4rem;text-align:center;color:var(--muted);font-size:0.82rem}
+
+/* ── BLOG ── */
+#blog{background:var(--bg2)}
+.blog-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:1.2rem}
+.blog-card{background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:1.5rem;transition:all 0.3s}
+.blog-card:hover{border-color:rgba(245,160,0,0.33);transform:translateY(-3px)}
+.blog-date{font-size:0.68rem;color:var(--muted);font-family:'Space Mono',monospace;margin-bottom:0.65rem}
+.blog-card h3{font-weight:600;color:#fff;margin-bottom:0.5rem;font-size:0.93rem}
+.blog-card p{color:var(--muted);font-size:0.81rem}
+.blog-read{display:inline-block;margin-top:0.85rem;color:var(--amber);font-size:0.78rem;font-weight:600;text-decoration:none}
+.blog-read:hover{color:var(--teal)}
+
+/* ── COMMUNITY ── */
+.comm-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start}
+.comm-info h3{font-family:'Audiowide',sans-serif;font-size:1.15rem;color:#fff;margin-bottom:0.85rem}
+.comm-info p{color:var(--muted);margin-bottom:1.2rem}
+.feat-list{list-style:none}
+.feat-list li{display:flex;align-items:center;gap:9px;padding:0.6rem 0;border-bottom:1px solid var(--border);color:var(--muted);font-size:0.86rem}
+.feat-list li::before{content:'▸';color:var(--amber);flex-shrink:0}
+.cform{background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:2rem}
+.cform h3{font-family:'Audiowide',sans-serif;font-size:0.93rem;color:#fff;margin-bottom:1.2rem}
+.cform .fgroup{margin-bottom:0.85rem}
+
+/* ── PREMIUM ── */
+#premium{background:var(--bg2)}
+.prem-banner{background:var(--bg3);border:1px solid rgba(245,160,0,0.26);border-radius:14px;padding:3.2rem;text-align:center;position:relative;overflow:hidden}
+.prem-banner::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(245,160,0,0.055) 0%,transparent 65%)}
+.prem-lock{font-size:2.6rem;margin-bottom:1.2rem;position:relative}
+.prem-banner h3{font-family:'Audiowide',sans-serif;font-size:1.45rem;color:#fff;margin-bottom:0.85rem;position:relative}
+.prem-banner .pdesc{color:var(--muted);max-width:520px;margin:0 auto 1.6rem;position:relative}
+.cs-badge{display:inline-block;background:linear-gradient(90deg,var(--amber),var(--teal));color:#000;font-weight:700;padding:0.5rem 1.7rem;border-radius:30px;font-size:0.78rem;letter-spacing:2px;text-transform:uppercase;font-family:'Space Mono',monospace;position:relative}
+.prem-features{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:0.85rem;margin-top:2rem;position:relative}
+.pfeat{background:rgba(245,160,0,0.045);border:1px solid rgba(245,160,0,0.12);border-radius:8px;padding:1rem;font-size:0.81rem;color:var(--muted);display:flex;align-items:flex-start;gap:8px}
+.pfeat-icon{color:var(--amber);flex-shrink:0}
+.notify-row{display:flex;gap:0.7rem;max-width:410px;margin:1.3rem auto 0;flex-wrap:wrap;justify-content:center;position:relative}
+.notify-row input{background:var(--bg2);border:1px solid var(--border);border-radius:6px;color:var(--text);font-family:'Exo 2',sans-serif;font-size:0.87rem;padding:0.68rem 0.95rem;outline:none;flex:1;min-width:185px;transition:border-color 0.3s}
+.notify-row input:focus{border-color:var(--amber)}
+
+/* ── WORK WITH ME ── */
+#workwithme{background:var(--bg)}
+.con-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:3.2rem;align-items:start}
+.con-info h3{font-family:'Audiowide',sans-serif;font-size:1rem;color:#fff;margin-bottom:1.2rem}
+.con-item{display:flex;align-items:center;gap:11px;margin-bottom:1rem;color:var(--muted);font-size:0.86rem}
+.con-icon{width:36px;height:36px;border-radius:7px;background:rgba(245,160,0,0.08);border:1px solid rgba(245,160,0,0.17);display:flex;align-items:center;justify-content:center;font-size:0.9rem;flex-shrink:0}
+.soc-links{display:flex;gap:0.65rem;margin-top:1.7rem;flex-wrap:wrap}
+.soc-btn{display:flex;align-items:center;gap:7px;background:var(--bg3);border:1px solid var(--border);color:var(--muted);padding:0.52rem 1rem;border-radius:6px;text-decoration:none;font-size:0.78rem;transition:all 0.3s}
+.soc-btn:hover{border-color:var(--amber);color:var(--amber)}
+.con-form{display:flex;flex-direction:column;gap:0.85rem}
+
+/* ── FOOTER ── */
+footer{background:var(--bg2);border-top:1px solid var(--border);padding:2.3rem 5%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1.1rem;position:relative;z-index:1}
+.footer-links{display:flex;gap:1.2rem;flex-wrap:wrap}
+.footer-links a{color:var(--muted);text-decoration:none;font-size:0.78rem;transition:color 0.3s}
+.footer-links a:hover{color:var(--amber)}
+
+/* ── CURSOR ── */
+.cursor-glow{position:fixed;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(245,160,0,0.05) 0%,transparent 70%);pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:left 0.08s,top 0.08s}
+
+/* ── RESPONSIVE ── */
+@media(max-width:960px){
+  .about-grid,.comm-grid,.con-grid{grid-template-columns:1fr;gap:2rem}
+  .frow{grid-template-columns:1fr}
+  .nav-links{display:none}
+  .hamburger{display:block}
+  .hero-stats{gap:1.6rem}
+  .prem-banner{padding:1.8rem 1.3rem}
+  footer{justify-content:center;text-align:center}
+  .footer-links{justify-content:center}
+  .gallery-slide{flex:0 0 calc(80% - 0.7rem)}
+  .gnavbtn.gprev{left:8px}
+  .gnavbtn.gnext{right:8px}
+}
+@media(max-width:540px){
+  .gallery-slide{flex:0 0 calc(88% - 0.7rem)}
+  .hero-stats{gap:1.2rem}
+  .svc-grid{grid-template-columns:1fr}
+  .folder-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="cursor-glow" id="cursorGlow"></div>
+
+<!-- ══ NAV ══ -->
+<nav>
+  <a href="#home" class="logo">MEKATRONICS</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#learn">Learn</a></li>
+    <li><a href="#blog">Blog</a></li>
+    <li><a href="#community">Community</a></li>
+    <li><a href="#workwithme" class="nav-cta">Work with Me</a></li>
+  </ul>
+  <button class="hamburger" onclick="toggleMenu()">&#9776;</button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about" onclick="closeMenu()">About</a>
+  <a href="#services" onclick="closeMenu()">Services</a>
+  <a href="#projects" onclick="closeMenu()">Projects</a>
+  <a href="#learn" onclick="closeMenu()">Learn</a>
+  <a href="#blog" onclick="closeMenu()">Blog</a>
+  <a href="#community" onclick="closeMenu()">Community</a>
+  <a href="#workwithme" onclick="closeMenu()">Work with Me ▸</a>
+</div>
+
+<!-- ══ HERO ══ -->
+<section id="home">
+  <div class="hero-glow"></div>
+  <div class="hero-inner">
+    <div class="hero-badge"><span class="pulse"></span>Electronics Engineer &middot; Innovator &middot; Educator</div>
+    <p class="hero-label">VIJAY SUBHASH MEKA</p>
+    <h1 class="hero-name">Engineering the<br>Future.</h1>
+    <div class="hero-brand">MEKATRONICS</div>
+    <p class="hero-tagline">Electronics freelancer, innovator &amp; educator. From Arduino circuits to robotic arms &mdash; building real-world solutions and empowering others to do the same.</p>
+    <div class="hero-btns">
+      <a href="#services" class="btn-primary">Explore Services</a>
+      <a href="#projects" class="btn-outline">See Projects</a>
+    </div>
+    <div class="hero-stats">
+      <div><span class="stat-num">10+</span><span class="stat-label">Projects Built</span></div>
+      <div><span class="stat-num">3+</span><span class="stat-label">Active Projects</span></div>
+      <div><span class="stat-num">4</span><span class="stat-label">Services Offered</span></div>
+      <div><span class="stat-num">&infin;</span><span class="stat-label">Ideas in Progress</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ GALLERY (below hero, inside page flow) ══ -->
+<div class="gallery-wrap">
+  <div class="gallery-header">
+    <span class="stag">// In Action</span>
+    <h2 class="stitle">Project Gallery</h2>
+    <div class="divider"></div>
+  </div>
+  <div class="gallery-stage">
+    <!-- LEFT button — absolutely centered on the slides -->
+    <button class="gnavbtn gprev" onclick="gMove(-1)" aria-label="Previous">&#8249;</button>
+    <div class="gallery-viewport">
+      <div class="gallery-track" id="galleryTrack">
+        <div class="gallery-slide"><div class="gcard" style="background:linear-gradient(135deg,#1a1200,#3d2c00)"><div class="gart">🦾</div><div class="goverlay"><span class="gcat">ROBOTICS</span><h3>6-DOF Robotic Arm</h3><p>Multi-axis servo controlled &mdash; in progress</p></div></div></div>
+        <div class="gallery-slide"><div class="gcard" style="background:linear-gradient(135deg,#001a10,#003d24)"><div class="gart">🤖</div><div class="goverlay"><span class="gcat">ARDUINO</span><h3>Line Follower Robot</h3><p>IR sensor + PID autonomous navigation</p></div></div></div>
+        <div class="gallery-slide"><div class="gcard" style="background:linear-gradient(135deg,#00101a,#00263d)"><div class="gart">🌐</div><div class="goverlay"><span class="gcat">IoT</span><h3>Smart Home Hub</h3><p>ESP32 + MQTT automation controller</p></div></div></div>
+        <div class="gallery-slide"><div class="gcard" style="background:linear-gradient(135deg,#1a0010,#3d0026)"><div class="gart">📡</div><div class="goverlay"><span class="gcat">SENSORS</span><h3>Ultrasonic Radar</h3><p>360&deg; obstacle detection with live display</p></div></div></div>
+        <div class="gallery-slide"><div class="gcard" style="background:linear-gradient(135deg,#0d1a00,#1c3d00)"><div class="gart">📺</div><div class="goverlay"><span class="gcat">EMBEDDED</span><h3>Digital Notice Board</h3><p>GSM-controlled LED matrix display</p></div></div></div>
+        <div class="gallery-slide"><div class="gcard" style="background:linear-gradient(135deg,#1a1500,#3d2e00)"><div class="gart">⚡</div><div class="goverlay"><span class="gcat">WORKSHOP</span><h3>MEKATRONICS Lab</h3><p>Where every circuit comes to life</p></div></div></div>
+      </div>
+    </div>
+    <!-- RIGHT button -->
+    <button class="gnavbtn gnext" onclick="gMove(1)" aria-label="Next">&#8250;</button>
+  </div>
+  <div class="gdots-row" id="gdots"></div>
+</div>
+
+<!-- ══ ABOUT ══ -->
+<section id="about">
+  <span class="stag">// Who I Am</span>
+  <h2 class="stitle">About Me</h2>
+  <div class="divider"></div>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>I'm <strong>Vijay Subhash Meka</strong>, an Electronics and Communication Engineer driven by a passion for creating, teaching, and innovating. My journey started with circuits and microcontrollers, and has evolved into a full vision for the future of technology.</p>
+      <p>From <strong>Arduino-based projects</strong> to complex <strong>robotic arms</strong>, I bring hands-on engineering knowledge to every challenge. My goal is not just to solve problems &mdash; but to document and share every solution so others can learn from it.</p>
+      <p>I believe engineering education should be <strong>accessible, practical, and inspiring</strong>. That's why I create content, write documentation, and provide project support &mdash; turning theory into reality.</p>
+      <div class="vision-box">
+        <h4>// VISION &mdash; BEYOND 2025</h4>
+        <p>Starting as an independent electronics freelancer, building toward a collaborative company &mdash; a platform where innovators, builders, and educators work together to push the boundaries of what's possible.</p>
+      </div>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-chip"><span class="sdot"></span>Arduino &amp; Microcontrollers</div>
+      <div class="skill-chip"><span class="sdot"></span>Embedded Systems</div>
+      <div class="skill-chip"><span class="sdot"></span>Robotics &amp; Automation</div>
+      <div class="skill-chip"><span class="sdot"></span>Circuit Design &amp; PCB</div>
+      <div class="skill-chip"><span class="sdot"></span>Signal Processing</div>
+      <div class="skill-chip"><span class="sdot"></span>IoT Development</div>
+      <div class="skill-chip"><span class="sdot"></span>Technical Documentation</div>
+      <div class="skill-chip"><span class="sdot"></span>Educational Content</div>
+      <div class="skill-chip"><span class="sdot"></span>MATLAB / Simulink</div>
+      <div class="skill-chip"><span class="sdot"></span>Python / C / C++</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SERVICES ══ -->
+<section id="services">
+  <span class="stag">// What I Offer</span>
+  <h2 class="stitle">Services</h2>
+  <div class="divider"></div>
+  <p class="ssub">Practical electronics expertise for students, professionals and businesses &mdash; from idea to working prototype.</p>
+  <div class="svc-grid">
+
+    <div class="svc-card">
+      <div class="svc-icon">🎓</div>
+      <h3>Final Year Project Development</h3>
+      <p class="svc-problem">Students struggle to build real working projects and proper documentation.</p>
+      <p class="svc-desc">Complete support from idea selection to a working prototype &mdash; coding, testing, and documentation all covered.</p>
+      <div class="svc-includes">
+        <div><span>▸</span>Circuit design</div>
+        <div><span>▸</span>Code development</div>
+        <div><span>▸</span>Testing &amp; debugging</div>
+        <div><span>▸</span>Documentation &amp; viva preparation</div>
+      </div>
+      <p class="svc-bestfor">Best for: <b>Final year students &amp; beginners</b></p>
+      <div class="svc-cta">
+        <a href="#workwithme" class="svc-cta-btn">Start Your Project</a>
+      </div>
+    </div>
+
+    <div class="svc-card">
+      <div class="svc-icon">⚡</div>
+      <h3>Embedded Systems &amp; IoT Prototyping</h3>
+      <p class="svc-problem">Ideas remain concepts without proper hardware execution.</p>
+      <p class="svc-desc">Transform your idea into a working prototype using Arduino, ESP32, sensors, and real-time systems.</p>
+      <div class="svc-includes">
+        <div><span>▸</span>Hardware setup</div>
+        <div><span>▸</span>Firmware development</div>
+        <div><span>▸</span>System testing</div>
+        <div><span>▸</span>Optimization</div>
+      </div>
+      <p class="svc-bestfor">Best for: <b>Students, startups &amp; innovators</b></p>
+      <div class="svc-cta">
+        <a href="#workwithme" class="svc-cta-btn">Build My Idea</a>
+      </div>
+    </div>
+
+    <div class="svc-card">
+      <div class="svc-icon">🔧</div>
+      <h3>Debugging &amp; Technical Consultation</h3>
+      <p class="svc-problem">Projects fail due to circuit errors, code bugs, or system issues.</p>
+      <p class="svc-desc">Identify and fix hardware/software problems with structured debugging and expert guidance.</p>
+      <div class="svc-includes">
+        <div><span>▸</span>Code review</div>
+        <div><span>▸</span>Circuit debugging</div>
+        <div><span>▸</span>Performance improvement</div>
+      </div>
+      <p class="svc-bestfor">Best for: <b>Anyone stuck in a project</b></p>
+      <div class="svc-cta">
+        <a href="#workwithme" class="svc-cta-btn">Fix My Project</a>
+      </div>
+    </div>
+
+    <div class="svc-card">
+      <div class="svc-icon">🤖</div>
+      <h3>Custom Robotics &amp; Automation Builds</h3>
+      <p class="svc-problem">Complex robotics systems are difficult to design and implement.</p>
+      <p class="svc-desc">Design and build robotics and automation solutions tailored exactly to your needs.</p>
+      <div class="svc-includes">
+        <div><span>▸</span>System design</div>
+        <div><span>▸</span>Sensor integration</div>
+        <div><span>▸</span>Control logic</div>
+        <div><span>▸</span>Full build support</div>
+      </div>
+      <p class="svc-bestfor">Best for: <b>Advanced projects, research &amp; prototypes</b></p>
+      <div class="svc-cta">
+        <a href="#workwithme" class="svc-cta-btn">Build a Custom System</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ PROJECTS ══ -->
+<section id="projects">
+  <span class="stag">// Projects &amp; Builds</span>
+  <h2 class="stitle">What I'm Building</h2>
+  <div class="divider"></div>
+  <p class="ssub">From completed builds to ambitious future projects &mdash; and a space for your ideas too.</p>
+  <div class="tabs">
+    <button class="tabbtn active" onclick="switchTab(this,'cur')">Current</button>
+    <button class="tabbtn" onclick="switchTab(this,'done')">Completed</button>
+    <button class="tabbtn" onclick="switchTab(this,'future')">Future Vision</button>
+    <button class="tabbtn" onclick="switchTab(this,'submit')">Submit Idea</button>
+    <button class="tabbtn" onclick="switchTab(this,'vote')">Vote on Ideas</button>
+  </div>
+  <div class="tabcontent active" id="tab-cur">
+    <div class="proj-grid">
+      <div class="proj-card"><span class="pstatus s-active">IN PROGRESS</span><h3>6-DOF Robotic Arm</h3><p>Fully programmable arm with servo control, inverse kinematics and computer vision for object manipulation.</p></div>
+      <div class="proj-card"><span class="pstatus s-active">IN PROGRESS</span><h3>Smart Home Automation Hub</h3><p>IoT-based controller using ESP32, custom PCB and mobile app interface for remote device control.</p></div>
+      <div class="proj-card"><span class="pstatus s-active">IN PROGRESS</span><h3>Electronics Learning Platform</h3><p>Structured video series from electronics fundamentals to advanced embedded systems &mdash; for self-learners.</p></div>
+    </div>
+  </div>
+  <div class="tabcontent" id="tab-done">
+    <div class="proj-grid">
+      <div class="proj-card"><span class="pstatus s-done">COMPLETED</span><h3>Arduino Line Follower Robot</h3><p>Autonomous robot using IR sensors and PID control to follow complex tracks with real-time speed adjustment.</p></div>
+      <div class="proj-card"><span class="pstatus s-done">COMPLETED</span><h3>Ultrasonic Radar System</h3><p>360&deg; obstacle detection radar with servo motor and Processing IDE visual display interface.</p></div>
+      <div class="proj-card"><span class="pstatus s-done">COMPLETED</span><h3>Digital Notice Board</h3><p>GSM-controlled LED matrix display for remote updates &mdash; deployed in a real educational institution.</p></div>
+    </div>
+  </div>
+  <div class="tabcontent" id="tab-future">
+    <div class="proj-grid">
+      <div class="proj-card"><span class="pstatus s-future">PLANNED</span><h3>Autonomous Drone Platform</h3><p>Custom drone with GPS navigation, obstacle avoidance and payload delivery &mdash; built from custom PCB up.</p></div>
+      <div class="proj-card"><span class="pstatus s-future">PLANNED</span><h3>Brain-Computer Interface</h3><p>EEG-based signal processing system to interpret brain signals for controlling external hardware.</p></div>
+      <div class="proj-card"><span class="pstatus s-future">PLANNED</span><h3>MEKATRONICS Freelancer Network</h3><p>A collaborative platform connecting electronics freelancers worldwide &mdash; the company vision starts here.</p></div>
+    </div>
+  </div>
+  <div class="tabcontent" id="tab-submit">
+    <div class="idea-form">
+      <h3>Share Your Idea or Problem</h3>
+      <p class="fdesc">Have an electronics challenge or innovation idea? Submit it &mdash; I'll review and we might collaborate!</p>
+      <div class="frow">
+        <div class="fgroup"><label>Your Name</label><input type="text" placeholder="e.g. Ravi Kumar"></div>
+        <div class="fgroup"><label>Email Address</label><input type="email" placeholder="your@email.com"></div>
+      </div>
+      <div class="frow">
+        <div class="fgroup"><label>Category</label><select><option>Robotics &amp; Automation</option><option>IoT &amp; Smart Systems</option><option>Embedded Systems</option><option>Signal Processing</option><option>Educational Content</option><option>Other</option></select></div>
+        <div class="fgroup"><label>Idea Title</label><input type="text" placeholder="e.g. Smart Irrigation System"></div>
+      </div>
+      <div class="frow-full"><div class="fgroup"><label>Describe Your Idea</label><textarea placeholder="Tell me everything &mdash; the problem, your idea, or what you'd like built..."></textarea></div></div>
+      <button class="btn-primary" onclick="alert('Your idea has been submitted! Vijay will review and get back to you.')">Submit Idea ▸</button>
+    </div>
+  </div>
+  <div class="tabcontent" id="tab-vote">
+    <p style="color:var(--muted);margin-bottom:1.1rem;font-size:0.88rem">Vote on which innovation you'd like to see built next. Your vote shapes the roadmap!</p>
+    <div id="voteList"></div>
+  </div>
+</section>
+
+<!-- ══ LEARN — FOLDER/DIRECTORY SYSTEM ══ -->
+<section id="learn">
+  <span class="stag">// Knowledge Base</span>
+  <h2 class="stitle">Learn</h2>
+  <div class="divider"></div>
+  <p class="ssub">Click any folder to explore its contents &mdash; articles, guides, interactive tools and more. Each topic is a living directory that grows over time.</p>
+
+  <!-- Breadcrumb path bar -->
+  <div class="learn-path">
+    <span>📁</span>
+    <span class="path-sep">/</span>
+    <span style="color:var(--teal)">mekatronics</span>
+    <span class="path-sep">/</span>
+    <span class="path-active">learn</span>
+    <span class="path-sep">/</span>
+    <span style="color:var(--muted)" id="openFolderName">&nbsp;</span>
+  </div>
+
+  <div class="folder-grid">
+
+    <!-- FOLDER 1: VLSI Design (FIRST, has real content) -->
+    <div class="folder-card" id="folder-vlsi" onclick="toggleFolder('vlsi')">
+      <div class="folder-tab">VLSI DESIGN</div>
+      <div style="height:18px"></div>
+      <div class="folder-header">
+        <div class="folder-icon-row">
+          <span class="folder-emoji">🔬</span>
+          <div class="folder-meta">
+            <div class="folder-name">Digital VLSI Design</div>
+            <div class="folder-count">1 article &middot; 1 interactive tool</div>
+          </div>
+        </div>
+      </div>
+      <p class="folder-desc">From transistors to tapeout &mdash; understand how chips are designed, the full VLSI flow explained through real-world analogies.</p>
+      <div class="folder-footer">
+        <span class="folder-status fs-new">NEW</span>
+        <span class="folder-toggle">Open <span class="folder-arrow">&#9658;</span></span>
+      </div>
+      <div class="folder-contents">
+        <div class="file-list">
+          <a href="learn-vlsi.html" class="file-item">
+            <div class="file-type-icon ft-article">📄</div>
+            <div class="file-info">
+              <div class="file-name">What is VLSI? A Complete Beginner's Guide</div>
+              <div class="file-meta">Article &middot; 15 min read &middot; Interactive map</div>
+            </div>
+            <span class="file-action">OPEN ▸</span>
+          </a>
+          <div class="file-item">
+            <div class="file-type-icon ft-image">🗺️</div>
+            <div class="file-info">
+              <div class="file-name">VLSI Design Flow — Interactive City Map</div>
+              <div class="file-meta">Interactive Tool &middot; Embedded in article above</div>
+            </div>
+            <span class="file-action">OPEN ▸</span>
+          </div>
+          <div class="file-item">
+            <div class="file-type-icon ft-soon">🎬</div>
+            <div class="file-info">
+              <div class="file-name">VLSI Explained: Video Walkthrough</div>
+              <div class="file-meta">Video &middot; Coming Soon</div>
+            </div>
+            <span class="file-action soon">SOON</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOLDER 2: Arduino -->
+    <div class="folder-card" id="folder-arduino" onclick="toggleFolder('arduino')">
+      <div class="folder-tab">ARDUINO</div>
+      <div style="height:18px"></div>
+      <div class="folder-header">
+        <div class="folder-icon-row">
+          <span class="folder-emoji">⚡</span>
+          <div class="folder-meta">
+            <div class="folder-name">Arduino Mastery</div>
+            <div class="folder-count">12 lessons &middot; Coming Soon</div>
+          </div>
+        </div>
+      </div>
+      <p class="folder-desc">Zero to advanced Arduino &mdash; from your first LED blink to building autonomous robots. Includes circuit diagrams, code and full documentation.</p>
+      <div class="folder-footer">
+        <span class="folder-status fs-soon">COMING SOON</span>
+        <span class="folder-toggle">Open <span class="folder-arrow">&#9658;</span></span>
+      </div>
+      <div class="folder-contents">
+        <div class="file-list">
+          <div class="file-item">
+            <div class="file-type-icon ft-soon">📄</div>
+            <div class="file-info">
+              <div class="file-name">Arduino 101 — Your First Circuit</div>
+              <div class="file-meta">Article &middot; Coming Soon</div>
+            </div>
+            <span class="file-action soon">SOON</span>
+          </div>
+          <div class="file-item">
+            <div class="file-type-icon ft-soon">🎬</div>
+            <div class="file-info">
+              <div class="file-name">Understanding Pins, Loops &amp; Sensors</div>
+              <div class="file-meta">Video Series &middot; Coming Soon</div>
+            </div>
+            <span class="file-action soon">SOON</span>
+          </div>
+          <div class="file-item">
+            <div class="file-type-icon ft-soon">📄</div>
+            <div class="file-info">
+              <div class="file-name">Build a Line Follower Robot</div>
+              <div class="file-meta">Project Guide &middot; Coming Soon</div>
+            </div>
+            <span class="file-action soon">SOON</span>
+          </div>
+          <div class="folder-empty">+ 9 more lessons dropping soon</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOLDER 3: Embedded Systems -->
+    <div class="folder-card" id="folder-embedded" onclick="toggleFolder('embedded')">
+      <div class="folder-tab">EMBEDDED SYSTEMS</div>
+      <div style="height:18px"></div>
+      <div class="folder-header">
+        <div class="folder-icon-row">
+          <span class="folder-emoji">📡</span>
+          <div class="folder-meta">
+            <div class="folder-name">Microcontrollers &amp; Embedded</div>
+            <div class="folder-count">8 lessons &middot; Coming Soon</div>
+          </div>
+        </div>
+      </div>
+      <p class="folder-desc">8051, AVR and ARM microcontrollers &mdash; architecture, programming, peripherals and real-world hardware projects.</p>
+      <div class="folder-footer">
+        <span class="folder-status fs-soon">COMING SOON</span>
+        <span class="folder-toggle">Open <span class="folder-arrow">&#9658;</span></span>
+      </div>
+      <div class="folder-contents">
+        <div class="file-list">
+          <div class="file-item"><div class="file-type-icon ft-soon">📄</div><div class="file-info"><div class="file-name">Microcontroller Architecture Explained</div><div class="file-meta">Article &middot; Coming Soon</div></div><span class="file-action soon">SOON</span></div>
+          <div class="file-item"><div class="file-type-icon ft-soon">🎬</div><div class="file-info"><div class="file-name">GPIO, Timers, Interrupts &amp; PWM</div><div class="file-meta">Video Series &middot; Coming Soon</div></div><span class="file-action soon">SOON</span></div>
+          <div class="file-item"><div class="file-type-icon ft-soon">📄</div><div class="file-info"><div class="file-name">UART, SPI &amp; I2C Communication</div><div class="file-meta">Article &middot; Coming Soon</div></div><span class="file-action soon">SOON</span></div>
+          <div class="folder-empty">+ 5 more lessons dropping soon</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOLDER 4: IoT -->
+    <div class="folder-card" id="folder-iot" onclick="toggleFolder('iot')">
+      <div class="folder-tab">IOT &amp; ESP32</div>
+      <div style="height:18px"></div>
+      <div class="folder-header">
+        <div class="folder-icon-row">
+          <span class="folder-emoji">🌐</span>
+          <div class="folder-meta">
+            <div class="folder-name">IoT Systems with ESP32</div>
+            <div class="folder-count">10 lessons &middot; Coming Soon</div>
+          </div>
+        </div>
+      </div>
+      <p class="folder-desc">Wi-Fi smart devices, cloud integration, MQTT protocol and real-time dashboards &mdash; hands-on from day one.</p>
+      <div class="folder-footer">
+        <span class="folder-status fs-soon">COMING SOON</span>
+        <span class="folder-toggle">Open <span class="folder-arrow">&#9658;</span></span>
+      </div>
+      <div class="folder-contents">
+        <div class="file-list">
+          <div class="file-item"><div class="file-type-icon ft-soon">📄</div><div class="file-info"><div class="file-name">ESP32 Setup &amp; First Wi-Fi Connection</div><div class="file-meta">Article &middot; Coming Soon</div></div><span class="file-action soon">SOON</span></div>
+          <div class="file-item"><div class="file-type-icon ft-soon">🎬</div><div class="file-info"><div class="file-name">MQTT &amp; Cloud Dashboard Tutorial</div><div class="file-meta">Video &middot; Coming Soon</div></div><span class="file-action soon">SOON</span></div>
+          <div class="file-item"><div class="file-type-icon ft-soon">📄</div><div class="file-info"><div class="file-name">Build a Smart Home Sensor Node</div><div class="file-meta">Project Guide &middot; Coming Soon</div></div><span class="file-action soon">SOON</span></div>
+          <div class="folder-empty">+ 7 more lessons dropping soon</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOLDER 5: Signal Processing -->
+    <div class="folder-card" id="folder-signals" onclick="toggleFolder('signals')">
+      <div class="folder-tab">SIGNAL PROCESSING</div>
+      <div style="height:18px"></div>
+      <div class="folder-header">
+        <div class="folder-icon-row">
+          <span class="folder-emoji">📊</span>
+          <div class="folder-meta">
+            <div class="folder-name">Signal Processing Fundamentals</div>
+            <div class="folder-count">Planned &middot; Building Next</div>
+          </div>
+        </div>
+      </div>
+      <p class="folder-desc">ADC, DAC, filters, FFT, and real-world signal analysis using MATLAB and Python &mdash; bridging theory and practice.</p>
+      <div class="folder-footer">
+        <span class="folder-status fs-soon">PLANNED</span>
+        <span class="folder-toggle">Open <span class="folder-arrow">&#9658;</span></span>
+      </div>
+      <div class="folder-contents">
+        <div class="folder-empty" style="padding:2rem 1.4rem">
+          <div style="font-size:1.5rem;margin-bottom:0.5rem">📂</div>
+          This folder is being prepared. Content dropping soon &mdash; stay tuned!
+        </div>
+      </div>
+    </div>
+
+    <!-- FOLDER 6: Documentation Skills -->
+    <div class="folder-card" id="folder-docs" onclick="toggleFolder('docs')">
+      <div class="folder-tab">DOCUMENTATION</div>
+      <div style="height:18px"></div>
+      <div class="folder-header">
+        <div class="folder-icon-row">
+          <span class="folder-emoji">📝</span>
+          <div class="folder-meta">
+            <div class="folder-name">Project Documentation Skills</div>
+            <div class="folder-count">Planned &middot; Building Next</div>
+          </div>
+        </div>
+      </div>
+      <p class="folder-desc">How to write technical reports, circuit documentation, project journals and GitHub READMEs that actually get noticed.</p>
+      <div class="folder-footer">
+        <span class="folder-status fs-soon">PLANNED</span>
+        <span class="folder-toggle">Open <span class="folder-arrow">&#9658;</span></span>
+      </div>
+      <div class="folder-contents">
+        <div class="folder-empty" style="padding:2rem 1.4rem">
+          <div style="font-size:1.5rem;margin-bottom:0.5rem">📂</div>
+          This folder is being prepared. Content dropping soon &mdash; stay tuned!
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ BLOG ══ -->
+<section id="blog">
+  <span class="stag">// Thoughts &amp; Writings</span>
+  <h2 class="stitle">Blog &amp; Articles</h2>
+  <div class="divider"></div>
+  <p class="ssub">Technical deep-dives, project walkthroughs and thoughts on the future of engineering education.</p>
+  <div class="blog-grid">
+    <div class="blog-card"><div class="blog-date">COMING SOON &middot; 2025</div><h3>Why Every Electronics Student Should Learn Arduino First</h3><p>Making hands-on hardware the foundation of electronics education &mdash; before simulation, before theory.</p><a href="#" class="blog-read">Read Article ▸</a></div>
+    <div class="blog-card"><div class="blog-date">COMING SOON &middot; 2025</div><h3>Documenting Your Projects: The Skill Nobody Teaches</h3><p>How good documentation transformed my engineering practice and opened doors I never expected.</p><a href="#" class="blog-read">Read Article ▸</a></div>
+    <div class="blog-card"><div class="blog-date">COMING SOON &middot; 2025</div><h3>Building a Robotic Arm: Lessons from Failure</h3><p>Everything that went wrong during my 6-DOF robotic arm build &mdash; and what each failure taught me.</p><a href="#" class="blog-read">Read Article ▸</a></div>
+  </div>
+</section>
+
+<!-- ══ COMMUNITY ══ -->
+<section id="community">
+  <span class="stag">// Collaborate &amp; Connect</span>
+  <h2 class="stitle">Community</h2>
+  <div class="divider"></div>
+  <div class="comm-grid">
+    <div class="comm-info">
+      <h3>Join the MEKATRONICS Network</h3>
+      <p>Whether you're a student, a fellow engineer, or a business &mdash; this is a space to collaborate, share ideas and build the future of electronics together.</p>
+      <ul class="feat-list">
+        <li>Collaborate on open innovation projects</li>
+        <li>Share your ideas and get feedback</li>
+        <li>Connect with electronics students &amp; professionals</li>
+        <li>Access project resources and documentation</li>
+        <li>Be part of a growing freelancer network</li>
+        <li>Vote on upcoming builds and content</li>
+      </ul>
+    </div>
+    <div class="cform">
+      <h3>Get Involved</h3>
+      <div class="fgroup"><label>Your Name</label><input type="text" placeholder="Ravi Kumar"></div>
+      <div class="fgroup"><label>Email Address</label><input type="email" placeholder="your@email.com"></div>
+      <div class="fgroup"><label>How do you want to collaborate?</label><select><option>I'm a student who needs guidance</option><option>I'm a fellow engineer / freelancer</option><option>I have a project I want built</option><option>I want to partner or invest</option><option>Just staying connected!</option></select></div>
+      <div class="fgroup"><label>Message (optional)</label><textarea placeholder="Tell me about yourself or your project..." style="min-height:80px"></textarea></div>
+      <button class="btn-primary" style="width:100%;margin-top:0.5rem" onclick="alert('Welcome to the MEKATRONICS community!')">Join the Network ▸</button>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PREMIUM ══ -->
+<section id="premium">
+  <span class="stag">// Exclusive Access</span>
+  <h2 class="stitle">Premium Content</h2>
+  <div class="divider"></div>
+  <p class="ssub">Advanced courses, exclusive builds, one-on-one sessions and more &mdash; launching soon.</p>
+  <div class="prem-banner">
+    <div class="prem-lock">🔒</div>
+    <h3>Premium Access &mdash; Coming Soon</h3>
+    <p class="pdesc">Exclusive deep-dive courses, 1:1 mentoring, private project builds, early access to innovations and premium documentation &mdash; all in one membership.</p>
+    <span class="cs-badge">Launching Soon</span>
+    <div class="prem-features">
+      <div class="pfeat"><span class="pfeat-icon">▸</span>Advanced electronics courses &amp; certifications</div>
+      <div class="pfeat"><span class="pfeat-icon">▸</span>One-on-one project mentoring</div>
+      <div class="pfeat"><span class="pfeat-icon">▸</span>Exclusive builds &amp; source code</div>
+      <div class="pfeat"><span class="pfeat-icon">▸</span>Priority project support &amp; reviews</div>
+      <div class="pfeat"><span class="pfeat-icon">▸</span>Early access to all innovations</div>
+      <div class="pfeat"><span class="pfeat-icon">▸</span>Premium documentation downloads</div>
+    </div>
+    <div class="notify-row">
+      <input type="email" placeholder="Enter your email for early access">
+      <button class="btn-primary" onclick="alert('You are on the early access list!')">Notify Me</button>
+    </div>
+  </div>
+</section>
+
+<!-- ══ WORK WITH ME ══ -->
+<section id="workwithme">
+  <span class="stag">// Let's Build Something</span>
+  <h2 class="stitle">Work with Me</h2>
+  <div class="divider"></div>
+  <div class="con-grid">
+    <div class="con-info">
+      <h3>Let's Work Together</h3>
+      <p style="color:var(--muted);margin-bottom:1.3rem">Have a project? Need documentation? Want to collaborate? Reach out &mdash; I respond to every message.</p>
+      <div class="con-item">
+        <div class="con-icon">✉</div>
+        <div>
+          <div style="color:var(--muted);font-size:0.7rem;letter-spacing:1px;text-transform:uppercase;margin-bottom:2px">Email</div>
+          <div>mekatronics.official@gmail.com</div>
+        </div>
+      </div>
+      <div class="con-item">
+        <div class="con-icon">📍</div>
+        <div>
+          <div style="color:var(--muted);font-size:0.7rem;letter-spacing:1px;text-transform:uppercase;margin-bottom:2px">Location</div>
+          <div>Hyderabad, Telangana, India</div>
+        </div>
+      </div>
+      <div class="soc-links">
+        <a href="#" class="soc-btn">▶ YouTube</a>
+        <a href="#" class="soc-btn">&#9670; Instagram</a>
+        <a href="#" class="soc-btn">in LinkedIn</a>
+      </div>
+    </div>
+    <div class="con-form">
+      <div class="fgroup"><label>Your Name</label><input type="text" placeholder="Ravi Kumar"></div>
+      <div class="fgroup"><label>Email Address</label><input type="email" placeholder="ravi@email.com"></div>
+      <div class="fgroup"><label>Subject</label><select><option>Project Collaboration</option><option>Service Enquiry</option><option>Educational Support</option><option>Partnership / Business</option><option>Just Saying Hello</option></select></div>
+      <div class="fgroup"><label>Message</label><textarea placeholder="Tell me about your project or what you need..." style="min-height:120px"></textarea></div>
+      <button class="btn-primary" onclick="alert('Message sent! Vijay will get back to you soon.')">Send Message ▸</button>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <a href="#home" class="logo">MEKATRONICS</a>
+  <p style="color:var(--muted);font-size:0.78rem">&copy; 2025 Vijay Subhash Meka &middot; All rights reserved</p>
+  <div class="footer-links">
+    <a href="#about">About</a>
+    <a href="#services">Services</a>
+    <a href="#projects">Projects</a>
+    <a href="#learn">Learn</a>
+    <a href="#community">Community</a>
+    <a href="#workwithme">Work with Me</a>
+  </div>
+</footer>
+
+<script>
+/* ── MOBILE MENU ── */
+function toggleMenu() {
+  var m = document.getElementById('mobileMenu');
+  m.style.display = (m.style.display === 'flex') ? 'none' : 'flex';
+}
+function closeMenu() {
+  document.getElementById('mobileMenu').style.display = 'none';
+}
+document.addEventListener('click', function(e) {
+  var menu = document.getElementById('mobileMenu');
+  var btn = document.querySelector('.hamburger');
+  if (menu && menu.style.display === 'flex' && !menu.contains(e.target) && !btn.contains(e.target)) {
+    menu.style.display = 'none';
+  }
+});
+
+/* ── CURSOR GLOW (desktop only) ── */
+if (window.matchMedia('(hover: hover)').matches) {
+  var glow = document.getElementById('cursorGlow');
+  document.addEventListener('mousemove', function(e) {
+    glow.style.left = e.clientX + 'px';
+    glow.style.top = e.clientY + 'px';
+  });
+}
+
+/* ── PROJECT TABS ── */
+function switchTab(btn, id) {
+  document.querySelectorAll('.tabbtn').forEach(function(b) { b.classList.remove('active'); });
+  document.querySelectorAll('.tabcontent').forEach(function(t) { t.classList.remove('active'); });
+  btn.classList.add('active');
+  document.getElementById('tab-' + id).classList.add('active');
+}
+
+/* ── VOTE SYSTEM ── */
+var ideas = [
+  { title: 'Autonomous Delivery Robot', desc: 'Self-navigating indoor robot using LIDAR & ROS', votes: 24 },
+  { title: 'EEG Mind-Controlled Wheelchair', desc: 'Brain signal interpretation to control wheelchair movement', votes: 18 },
+  { title: 'AI-Powered PCB Inspector', desc: 'Computer vision to detect PCB manufacturing defects', votes: 31 },
+  { title: 'Gesture-Controlled Prosthetic Hand', desc: 'EMG-based prosthetic that learns user gestures', votes: 27 }
+];
+var voted = {};
+function renderVotes() {
+  var html = '';
+  for (var i = 0; i < ideas.length; i++) {
+    var v = voted[i];
+    html += '<div class="vote-item">' +
+      '<div class="vcount"><span class="vnum">' + ideas[i].votes + '</span><span class="vlabel">VOTES</span></div>' +
+      '<div class="vinfo"><h4>' + ideas[i].title + '</h4><p>' + ideas[i].desc + '</p></div>' +
+      '<button class="vbtn' + (v ? ' voted' : '') + '" onclick="castVote(' + i + ')">' + (v ? '&#10003; Voted' : '&#9650; Vote') + '</button>' +
+      '</div>';
+  }
+  document.getElementById('voteList').innerHTML = html;
+}
+function castVote(i) {
+  if (voted[i]) return;
+  voted[i] = true;
+  ideas[i].votes++;
+  renderVotes();
+}
+renderVotes();
+
+/* ── LEARN FOLDER SYSTEM ── */
+var openFolder = null;
+function toggleFolder(id) {
+  var card = document.getElementById('folder-' + id);
+  var nameEl = document.getElementById('openFolderName');
+  var folderNames = {
+    vlsi: 'digital-vlsi-design',
+    arduino: 'arduino-mastery',
+    embedded: 'embedded-systems',
+    iot: 'iot-esp32',
+    signals: 'signal-processing',
+    docs: 'documentation-skills'
+  };
+  if (openFolder && openFolder !== id) {
+    var prev = document.getElementById('folder-' + openFolder);
+    if (prev) prev.classList.remove('open');
+  }
+  if (openFolder === id) {
+    card.classList.remove('open');
+    openFolder = null;
+    nameEl.textContent = '\u00a0';
+  } else {
+    card.classList.add('open');
+    openFolder = id;
+    nameEl.textContent = folderNames[id] || id;
+  }
+}
+
+/* ── GALLERY SLIDER ── */
+(function() {
+  var track = document.getElementById('galleryTrack');
+  var dotsEl = document.getElementById('gdots');
+  if (!track || !dotsEl) return;
+  var slides = track.querySelectorAll('.gallery-slide');
+  var cur = 0;
+  var autoTimer;
+  var GAP = 24; // matches CSS gap: 1.4rem ≈ 22px; using 24 as safe value
+
+  function getVisible() {
+    return window.innerWidth < 600 ? 1 : window.innerWidth < 960 ? 1 : 3;
+  }
+  function getMax() { return Math.max(0, slides.length - getVisible()); }
+
+  function buildDots() {
+    var max = getMax();
+    var html = '';
+    for (var i = 0; i <= max; i++) {
+      html += '<button class="gdot' + (i === cur ? ' active' : '') + '" data-i="' + i + '"></button>';
+    }
+    dotsEl.innerHTML = html;
+    dotsEl.querySelectorAll('.gdot').forEach(function(d) {
+      d.addEventListener('click', function() {
+        goTo(parseInt(d.getAttribute('data-i')));
+        resetAuto();
+      });
+    });
+  }
+
+  function goTo(idx) {
+    var max = getMax();
+    cur = idx < 0 ? max : idx > max ? 0 : idx;
+    /* compute slide width from actual DOM — reliable after render */
+    var slideW = slides[0].getBoundingClientRect().width + GAP;
+    track.style.transform = 'translateX(-' + (cur * slideW) + 'px)';
+    dotsEl.querySelectorAll('.gdot').forEach(function(d, i) {
+      d.classList.toggle('active', i === cur);
+    });
+  }
+
+  window.gMove = function(dir) {
+    goTo(cur + dir);
+    resetAuto();
+  };
+
+  function resetAuto() {
+    clearInterval(autoTimer);
+    /* 3 second auto-advance */
+    autoTimer = setInterval(function() { goTo(cur + 1); }, 3000);
+  }
+
+  /* Touch swipe */
+  var touchX = 0;
+  track.addEventListener('touchstart', function(e) { touchX = e.touches[0].clientX; }, { passive: true });
+  track.addEventListener('touchend', function(e) {
+    var diff = touchX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 40) { goTo(cur + (diff > 0 ? 1 : -1)); resetAuto(); }
+  }, { passive: true });
+
+  /* Init after fonts/layout settle */
+  setTimeout(function() { buildDots(); resetAuto(); }, 120);
+  window.addEventListener('resize', function() { buildDots(); goTo(0); });
+})();
+</script>
+</body>
+</html>

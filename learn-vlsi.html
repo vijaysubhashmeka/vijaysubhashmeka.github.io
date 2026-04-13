@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What is VLSI? — MEKATRONICS Learn</title>
+<link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Exo+2:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--amber:#F5A000;--teal:#00D4AA;--bg:#06060E;--bg2:#0D0D1C;--bg3:#13132A;--border:rgba(245,160,0,0.18);--text:#E8E8F5;--muted:#8888AA}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Exo 2',sans-serif;font-size:16px;line-height:1.7;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(245,160,0,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(245,160,0,0.03) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;z-index:0}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:0 5%;height:64px;background:rgba(6,6,14,0.96);border-bottom:1px solid var(--border);backdrop-filter:blur(12px)}
+.logo{font-family:'Audiowide',sans-serif;font-size:1.2rem;letter-spacing:3px;background:linear-gradient(90deg,var(--amber),var(--teal));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-decoration:none}
+.back-btn{display:flex;align-items:center;gap:8px;color:var(--muted);text-decoration:none;font-size:0.82rem;letter-spacing:1px;transition:color 0.3s;font-family:'Space Mono',monospace}
+.back-btn:hover{color:var(--amber)}
+.back-arrow{font-size:1rem}
+
+/* HERO */
+.article-hero{padding:100px 5% 60px;position:relative;z-index:1;max-width:860px;margin:0 auto}
+.article-tag{font-family:'Space Mono',monospace;font-size:0.7rem;letter-spacing:3px;text-transform:uppercase;color:var(--teal);margin-bottom:1rem;display:block}
+.article-title{font-family:'Audiowide',sans-serif;font-size:clamp(1.8rem,4vw,3rem);color:#fff;line-height:1.15;margin-bottom:1.2rem;letter-spacing:1px}
+.article-title span{background:linear-gradient(90deg,var(--amber),var(--teal));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.article-meta{display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;margin-bottom:2rem}
+.meta-item{font-size:0.78rem;color:var(--muted);font-family:'Space Mono',monospace;display:flex;align-items:center;gap:6px}
+.meta-dot{width:6px;height:6px;border-radius:50%;background:var(--teal)}
+.article-intro{font-size:1.1rem;color:var(--muted);font-weight:300;line-height:1.8;border-left:3px solid var(--amber);padding-left:1.5rem;margin-bottom:0}
+
+/* CONTENT */
+.article-body{max-width:860px;margin:0 auto;padding:0 5% 100px;position:relative;z-index:1}
+.section-block{margin-bottom:3.5rem}
+.block-tag{font-family:'Space Mono',monospace;font-size:0.68rem;letter-spacing:2.5px;text-transform:uppercase;color:var(--teal);margin-bottom:0.6rem;display:block}
+.block-title{font-family:'Audiowide',sans-serif;font-size:clamp(1.2rem,2.5vw,1.7rem);color:#fff;margin-bottom:1.2rem;letter-spacing:0.5px}
+.block-divider{width:44px;height:3px;background:linear-gradient(90deg,var(--amber),var(--teal));margin-bottom:1.5rem;border-radius:2px}
+p{color:var(--muted);margin-bottom:1.1rem;font-weight:300;line-height:1.8}
+p strong{color:var(--amber);font-weight:600}
+p em{color:var(--teal);font-style:normal;font-weight:500}
+
+/* CALLOUT BOXES */
+.callout{border-radius:10px;padding:1.4rem 1.6rem;margin:1.8rem 0}
+.callout-wow{background:rgba(245,160,0,0.07);border:1px solid rgba(245,160,0,0.25);border-left:3px solid var(--amber)}
+.callout-fun{background:rgba(0,212,170,0.06);border:1px solid rgba(0,212,170,0.2);border-left:3px solid var(--teal)}
+.callout-key{background:rgba(255,255,255,0.03);border:1px solid var(--border);border-left:3px solid #7F77DD}
+.callout-label{font-family:'Space Mono',monospace;font-size:0.68rem;letter-spacing:2px;text-transform:uppercase;margin-bottom:0.6rem;display:block;font-weight:700}
+.callout-wow .callout-label{color:var(--amber)}
+.callout-fun .callout-label{color:var(--teal)}
+.callout-key .callout-label{color:#AFA9EC}
+.callout p{margin-bottom:0;font-size:0.94rem}
+
+/* SCALE COMPARISON */
+.scale-bar{background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:1.8rem;margin:1.8rem 0}
+.scale-bar h4{font-family:'Audiowide',sans-serif;font-size:0.85rem;color:#fff;margin-bottom:1.2rem;letter-spacing:0.5px}
+.scale-items{display:flex;flex-direction:column;gap:0.7rem}
+.scale-item{display:flex;align-items:center;gap:1rem}
+.scale-label{font-size:0.8rem;color:var(--muted);min-width:160px;font-family:'Space Mono',monospace;flex-shrink:0}
+.scale-track{flex:1;background:rgba(255,255,255,0.05);border-radius:4px;height:14px;overflow:hidden}
+.scale-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--amber),var(--teal))}
+.scale-val{font-size:0.75rem;color:var(--amber);min-width:80px;text-align:right;font-family:'Space Mono',monospace;flex-shrink:0}
+
+/* CAREER CARDS */
+.career-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1rem;margin:1.5rem 0}
+.career-card{background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:1.2rem;transition:border-color 0.3s}
+.career-card:hover{border-color:rgba(245,160,0,0.4)}
+.career-icon{font-size:1.6rem;margin-bottom:0.6rem;display:block}
+.career-card h4{font-weight:600;color:#fff;font-size:0.9rem;margin-bottom:0.4rem}
+.career-card p{font-size:0.8rem;color:var(--muted);margin:0}
+
+/* INTERACTIVE MAP SECTION */
+.map-section{background:var(--bg2);border-radius:16px;border:1px solid var(--border);padding:2rem;margin:2rem 0}
+.map-section-title{font-family:'Audiowide',sans-serif;font-size:1rem;color:#fff;margin-bottom:0.5rem;letter-spacing:0.5px}
+.map-section-sub{font-size:0.85rem;color:var(--muted);margin-bottom:1.5rem}
+.map-hint{display:inline-flex;align-items:center;gap:8px;background:rgba(245,160,0,0.08);border:1px solid rgba(245,160,0,0.2);padding:6px 14px;border-radius:20px;font-size:0.75rem;color:var(--amber);font-family:'Space Mono',monospace;margin-bottom:1.5rem;letter-spacing:1px}
+
+/* ─── INTERACTIVE MAP (restyled for dark bg) ─── */
+.vlsi-map{display:flex;flex-direction:column;gap:10px}
+.map-title{font-size:12px;font-weight:500;color:var(--muted);text-align:center;letter-spacing:0.04em;text-transform:uppercase;margin-bottom:4px}
+.chip-outer{border:1.5px solid rgba(245,160,0,0.3);border-radius:14px;padding:14px;background:var(--bg3);position:relative}
+.chip-label{position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:var(--bg3);padding:0 10px;font-size:11px;font-weight:500;color:var(--amber);white-space:nowrap;border:0.5px solid rgba(245,160,0,0.3);border-radius:20px;font-family:'Space Mono',monospace}
+.flow-row{display:flex;gap:6px;align-items:stretch;justify-content:stretch}
+.arrow-col{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 2px;min-width:18px;flex-shrink:0}
+.arrow-down{width:10px;height:28px;position:relative}
+.arrow-down::before{content:'';position:absolute;left:50%;top:0;transform:translateX(-50%);width:1.5px;height:20px;background:rgba(245,160,0,0.4)}
+.arrow-down::after{content:'';position:absolute;left:50%;bottom:0;transform:translateX(-50%);border-left:4px solid transparent;border-right:4px solid transparent;border-top:6px solid rgba(245,160,0,0.4)}
+.stage-card{flex:1;border-radius:10px;padding:10px 12px;cursor:pointer;border:1px solid transparent;transition:all 0.2s;position:relative;overflow:hidden}
+.stage-card:hover{transform:translateY(-2px);box-shadow:0 4px 20px rgba(0,0,0,0.3)}
+.stage-card:active{transform:scale(0.97)}
+.stage-icon{font-size:16px;margin-bottom:4px;display:block}
+.stage-name{font-size:12px;font-weight:600;line-height:1.3;margin-bottom:3px}
+.stage-analogy{font-size:10px;line-height:1.4;opacity:0.8}
+.stage-badge{position:absolute;top:7px;right:7px;font-size:9px;font-weight:500;padding:2px 6px;border-radius:20px}
+.section-label{font-size:10px;font-weight:500;color:var(--amber);letter-spacing:2px;text-transform:uppercase;text-align:center;font-family:'Space Mono',monospace;padding:4px 0}
+.pd-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.ppa-row{display:flex;align-items:center;gap:8px}
+.ppa-card{flex:1;border-radius:10px;padding:10px 8px;cursor:pointer;text-align:center;border:1px solid transparent;transition:all 0.2s}
+.ppa-card:hover{transform:translateY(-2px)}
+.ppa-icon{font-size:18px;display:block;margin-bottom:4px}
+.ppa-name{font-size:11px;font-weight:600}
+.ppa-desc{font-size:9px;opacity:0.8}
+.ppa-vs{font-size:11px;color:var(--muted);font-weight:500;flex-shrink:0}
+.legend-row{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:6px}
+.legend-item{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--muted)}
+.legend-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.divider-line{height:1px;background:var(--border);margin:8px 0}
+
+/* Stage color themes - adapted for dark bg */
+.s-purple{background:rgba(83,74,183,0.25);border-color:rgba(127,119,221,0.5)!important}
+.s-purple .stage-name{color:#CECBF6}
+.s-purple .stage-analogy{color:#AFA9EC}
+.s-purple .stage-badge{background:rgba(63,52,137,0.6);color:#CECBF6}
+.s-teal-m{background:rgba(15,110,86,0.25);border-color:rgba(93,202,165,0.5)!important}
+.s-teal-m .stage-name{color:#9FE1CB}
+.s-teal-m .stage-analogy{color:#5DCAA5}
+.s-teal-m .stage-badge{background:rgba(8,80,65,0.6);color:#9FE1CB}
+.s-blue{background:rgba(24,95,165,0.25);border-color:rgba(133,183,235,0.5)!important}
+.s-blue .stage-name{color:#B5D4F4}
+.s-blue .stage-analogy{color:#85B7EB}
+.s-blue .stage-badge{background:rgba(12,68,124,0.6);color:#B5D4F4}
+.s-amber-m{background:rgba(133,79,11,0.3);border-color:rgba(239,159,39,0.5)!important}
+.s-amber-m .stage-name{color:#FAC775}
+.s-amber-m .stage-analogy{color:#EF9F27}
+.s-amber-m .stage-badge{background:rgba(99,56,6,0.6);color:#FAC775}
+.s-pink{background:rgba(153,53,86,0.25);border-color:rgba(237,147,177,0.5)!important}
+.s-pink .stage-name{color:#F4C0D1}
+.s-pink .stage-analogy{color:#ED93B1}
+.s-pink .stage-badge{background:rgba(114,36,62,0.6);color:#F4C0D1}
+.s-coral{background:rgba(153,60,29,0.25);border-color:rgba(240,153,123,0.5)!important}
+.s-coral .stage-name{color:#F5C4B3}
+.s-coral .stage-analogy{color:#F0997B}
+.s-green-m{background:rgba(59,109,17,0.25);border-color:rgba(151,196,89,0.5)!important}
+.s-green-m .stage-name{color:#C0DD97}
+.s-green-m .stage-analogy{color:#97C459}
+.s-green-m .stage-badge{background:rgba(39,80,10,0.6);color:#C0DD97}
+
+/* DETAIL PANEL */
+.detail-panel{background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:1.5rem;margin-top:1.2rem;display:none}
+.detail-panel.visible{display:block;animation:fadeIn 0.25s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.detail-panel h3{font-family:'Audiowide',sans-serif;font-size:0.95rem;color:#fff;margin-bottom:0.8rem;line-height:1.4}
+.detail-panel p{color:var(--muted);font-size:0.88rem;margin-bottom:0.7rem;line-height:1.75}
+.detail-panel p:last-child{margin-bottom:0}
+.detail-panel strong{color:var(--amber)}
+.detail-panel em{color:var(--teal);font-style:normal}
+.detail-close{background:none;border:1px solid var(--border);color:var(--muted);padding:4px 12px;border-radius:20px;font-size:0.72rem;cursor:pointer;float:right;margin-left:1rem;font-family:'Space Mono',monospace;transition:all 0.3s}
+.detail-close:hover{border-color:var(--amber);color:var(--amber)}
+
+/* KEY TAKEAWAYS */
+.takeaway-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem;margin-top:1.5rem}
+.takeaway-card{background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:1.3rem;display:flex;gap:12px;align-items:flex-start}
+.takeaway-num{font-family:'Audiowide',sans-serif;font-size:1.3rem;color:var(--amber);flex-shrink:0;line-height:1}
+.takeaway-card h4{font-weight:600;color:#fff;font-size:0.88rem;margin-bottom:0.3rem}
+.takeaway-card p{font-size:0.8rem;color:var(--muted);margin:0;line-height:1.6}
+
+/* CTA */
+.article-cta{background:var(--bg3);border:1px solid rgba(245,160,0,0.3);border-radius:14px;padding:2.5rem;text-align:center;margin-top:3rem;position:relative;overflow:hidden}
+.article-cta::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(245,160,0,0.06) 0%,transparent 65%)}
+.article-cta h3{font-family:'Audiowide',sans-serif;font-size:1.2rem;color:#fff;margin-bottom:0.7rem;position:relative}
+.article-cta p{color:var(--muted);max-width:480px;margin:0 auto 1.5rem;position:relative;font-size:0.9rem}
+.btn-primary{background:var(--amber);color:#000;padding:0.78rem 1.7rem;border-radius:5px;text-decoration:none;font-weight:700;font-size:0.86rem;letter-spacing:1px;transition:all 0.3s;display:inline-block;border:none;cursor:pointer;font-family:'Exo 2',sans-serif;position:relative}
+.btn-primary:hover{background:var(--teal);transform:translateY(-2px)}
+.btn-outline{border:1.5px solid var(--amber);color:var(--amber);padding:0.78rem 1.7rem;border-radius:5px;text-decoration:none;font-weight:600;font-size:0.86rem;letter-spacing:1px;transition:all 0.3s;display:inline-block;background:none;cursor:pointer;font-family:'Exo 2',sans-serif;position:relative;margin-left:0.8rem}
+.btn-outline:hover{background:rgba(245,160,0,0.1);transform:translateY(-2px)}
+
+/* PROGRESS BAR */
+.reading-bar{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--amber),var(--teal));z-index:9999;transition:width 0.1s}
+
+/* RESPONSIVE */
+@media(max-width:600px){
+  .article-hero{padding:85px 5% 40px}
+  .pd-grid{grid-template-columns:repeat(2,1fr)}
+  .ppa-row{flex-direction:column;gap:6px}
+  .ppa-vs{transform:rotate(90deg)}
+  .btn-outline{margin-left:0;margin-top:0.6rem;display:block}
+  .career-grid{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="reading-bar" id="readingBar"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="mekatronics.html" class="logo">MEKATRONICS</a>
+  <a href="mekatronics.html#learn" class="back-btn"><span class="back-arrow">←</span> Back to Learn</a>
+</nav>
+
+<!-- HERO -->
+<div class="article-hero">
+  <span class="article-tag">// Learn · Electronics Engineering · Beginner Friendly</span>
+  <h1 class="article-title">What is <span>VLSI Design</span>?<br>A Complete Beginner's Guide</h1>
+  <div class="article-meta">
+    <div class="meta-item"><div class="meta-dot"></div>By Vijay Subhash Meka</div>
+    <div class="meta-item"><div class="meta-dot"></div>15 min read</div>
+    <div class="meta-item"><div class="meta-dot"></div>Beginner Friendly</div>
+    <div class="meta-item"><div class="meta-dot"></div>Interactive</div>
+  </div>
+  <p class="article-intro">
+    You're holding a phone with more computing power than all of NASA in 1969. Inside it sits a chip smaller than your fingernail containing <strong>over 15 billion transistors</strong>. VLSI is the engineering discipline that makes this possible — and this guide will walk you through it, from scratch.
+  </p>
+</div>
+
+<!-- BODY -->
+<div class="article-body">
+
+  <!-- SECTION 1: WHAT IS VLSI -->
+  <div class="section-block">
+    <span class="block-tag">// Section 01</span>
+    <h2 class="block-title">What exactly is VLSI?</h2>
+    <div class="block-divider"></div>
+
+    <p><strong>VLSI stands for Very Large Scale Integration.</strong> The "integration" part means combining many electronic components — transistors, resistors, capacitors — onto a single tiny chip of silicon. The "Very Large Scale" part means we're talking about <em>billions</em> of these components packed into a space you can barely see.</p>
+
+    <p>Before VLSI existed, computers filled entire rooms. In the 1940s and 50s, a single computer used thousands of vacuum tubes and weighed over 30 tonnes. Then came transistors, then integrated circuits, and finally — VLSI, which allowed engineers to pack millions and then billions of transistors onto one chip.</p>
+
+    <div class="callout callout-wow">
+      <span class="callout-label">🤯 Mind-blowing fact</span>
+      <p>A modern transistor inside your phone's chip is about <strong>3–5 nanometres</strong> wide. A single strand of human hair is 80,000 nanometres wide. That means you could fit <strong>16,000 transistors</strong> across the width of one hair strand — side by side.</p>
+    </div>
+
+    <p>VLSI is the reason your phone fits in your pocket. It's why smartwatches exist. It's behind every laptop, satellite, medical device, car computer, and AI server. <strong>If it runs on electricity and thinks — VLSI is somewhere inside it.</strong></p>
+  </div>
+
+  <!-- SECTION 2: SCALE -->
+  <div class="section-block">
+    <span class="block-tag">// Section 02</span>
+    <h2 class="block-title">How small are we really talking?</h2>
+    <div class="block-divider"></div>
+
+    <p>The word "nanometre" is thrown around a lot in chip design, but it's hard to truly grasp. Let's put it into perspective. The scale bar below shows how different objects compare to a transistor inside a modern chip:</p>
+
+    <div class="scale-bar">
+      <h4>Size Comparison — From Your Eye to a Transistor</h4>
+      <div class="scale-items">
+        <div class="scale-item"><div class="scale-label">Human eye can see</div><div class="scale-track"><div class="scale-fill" style="width:100%"></div></div><div class="scale-val">~100 µm</div></div>
+        <div class="scale-item"><div class="scale-label">Human hair</div><div class="scale-track"><div class="scale-fill" style="width:80%"></div></div><div class="scale-val">~80 µm</div></div>
+        <div class="scale-item"><div class="scale-label">Blood cell</div><div class="scale-track"><div class="scale-fill" style="width:10%"></div></div><div class="scale-val">~8 µm</div></div>
+        <div class="scale-item"><div class="scale-label">Virus</div><div class="scale-track"><div class="scale-fill" style="width:1.2%"></div></div><div class="scale-val">~100 nm</div></div>
+        <div class="scale-item"><div class="scale-label">DNA strand width</div><div class="scale-track"><div class="scale-fill" style="width:0.25%"></div></div><div class="scale-val">~2 nm</div></div>
+        <div class="scale-item"><div class="scale-label">Modern transistor (3nm)</div><div class="scale-track"><div class="scale-fill" style="width:0.004%"></div></div><div class="scale-val">3 nm ← chip</div></div>
+      </div>
+    </div>
+
+    <div class="callout callout-fun">
+      <span class="callout-label">💡 Real Talk</span>
+      <p>At 3nm, we're working at the scale of individual atoms. Silicon atoms themselves are about 0.2nm wide, so a 3nm transistor is only about <strong>15 atoms wide</strong>. Engineers aren't just building circuits at this scale — they're essentially sculpting matter atom by atom using light and chemistry.</p>
+    </div>
+  </div>
+
+  <!-- SECTION 3: THE CITY ANALOGY -->
+  <div class="section-block">
+    <span class="block-tag">// Section 03</span>
+    <h2 class="block-title">Think of it as building a city — on a fingernail</h2>
+    <div class="block-divider"></div>
+
+    <p>Designing a VLSI chip is arguably the most complex engineering task humans have ever undertaken. To make it understandable, we use the best analogy in engineering education: <strong>a chip is like a city.</strong></p>
+
+    <p>Imagine you have to build an entire city — with roads, buildings, power lines, water pipes, communication networks, traffic signals, zoning laws, and thousands of residents — all crammed onto the surface of your fingernail. And once construction begins, <strong>you cannot make a single change.</strong> That's chip design.</p>
+
+    <p>Just like a city needs architects, planners, inspectors, and construction crews — a chip needs a full team of specialised engineers working through a structured design flow. Let's walk through it:</p>
+
+    <div class="callout callout-key">
+      <span class="callout-label">🏙️ The Analogy at a Glance</span>
+      <p><strong>Transistors</strong> = Buildings &nbsp;|&nbsp; <strong>Metal wires</strong> = Roads &amp; pipes &nbsp;|&nbsp; <strong>Clock signal</strong> = City-wide synchronized clock &nbsp;|&nbsp; <strong>Power grid</strong> = Electricity network &nbsp;|&nbsp; <strong>Tapeout</strong> = Breaking ground — no going back &nbsp;|&nbsp; <strong>Foundry</strong> = The construction company (TSMC, Samsung)</p>
+    </div>
+  </div>
+
+  <!-- SECTION 4: INTERACTIVE MAP -->
+  <div class="section-block">
+    <span class="block-tag">// Section 04 — Interactive</span>
+    <h2 class="block-title">The Complete VLSI Design Flow</h2>
+    <div class="block-divider"></div>
+
+    <p>Below is the complete journey a chip takes from idea to silicon — split into two major phases. <strong>Click any stage card</strong> to get a detailed, beginner-friendly explanation of what happens at that step and why it matters.</p>
+
+    <div class="map-section">
+      <div class="map-section-title">Digital VLSI Design — City Map</div>
+      <p class="map-section-sub">From specification to silicon — every stage explained</p>
+      <div class="map-hint">👆 Tap any stage to learn more</div>
+
+      <!-- THE MAP -->
+      <div class="vlsi-map">
+        <div class="map-title">The Chip Die — Your Silicon City</div>
+
+        <div class="chip-outer">
+          <div class="chip-label">Phase 1 — Front End (Logic Design)</div>
+
+          <!-- Stage 1: Spec -->
+          <div class="flow-row">
+            <div class="stage-card s-purple" onclick="showDetail('spec')">
+              <span class="stage-icon">📋</span>
+              <div class="stage-name">Specification & Architecture</div>
+              <div class="stage-analogy">The city masterplan — what must this city do?</div>
+              <span class="stage-badge">The Blueprint</span>
+            </div>
+          </div>
+
+          <div class="arrow-col" style="height:28px;display:flex;align-items:center;justify-content:center;width:100%">
+            <div class="arrow-down"></div>
+          </div>
+
+          <!-- Stage 2+3: RTL + DV -->
+          <div class="flow-row">
+            <div class="stage-card s-teal-m" onclick="showDetail('rtl')">
+              <span class="stage-icon">✏️</span>
+              <div class="stage-name">RTL Design</div>
+              <div class="stage-analogy">Architect draws building blueprints in code</div>
+              <span class="stage-badge">Verilog / VHDL</span>
+            </div>
+            <div class="stage-card s-blue" onclick="showDetail('dv')">
+              <span class="stage-icon">🔬</span>
+              <div class="stage-name">Verification (DV)</div>
+              <div class="stage-analogy">Simulate the city before a single brick is laid</div>
+              <span class="stage-badge">60–70% effort</span>
+            </div>
+          </div>
+
+          <div class="arrow-col" style="height:28px;display:flex;align-items:center;justify-content:center;width:100%">
+            <div class="arrow-down"></div>
+          </div>
+
+          <!-- Stage 4+5: Synthesis + DFT -->
+          <div class="flow-row">
+            <div class="stage-card s-amber-m" onclick="showDetail('syn')">
+              <span class="stage-icon">🏗️</span>
+              <div class="stage-name">Logic Synthesis</div>
+              <div class="stage-analogy">Convert blueprints into exact materials list</div>
+              <span class="stage-badge">Netlist</span>
+            </div>
+            <div class="stage-card s-pink" onclick="showDetail('dft')">
+              <span class="stage-icon">🔌</span>
+              <div class="stage-name">Design for Test (DFT)</div>
+              <div class="stage-analogy">Built-in inspection ports in every building</div>
+              <span class="stage-badge">Scan Chains</span>
+            </div>
+          </div>
+
+          <div class="divider-line" style="margin:12px 0 8px"></div>
+          <div class="section-label">Phase 2 — Back End (Physical Design)</div>
+
+          <!-- PD Grid -->
+          <div class="pd-grid">
+            <div class="stage-card s-coral" onclick="showDetail('fp')">
+              <span class="stage-icon">🗺️</span>
+              <div class="stage-name">Floorplan</div>
+              <div class="stage-analogy">City zoning map</div>
+            </div>
+            <div class="stage-card s-coral" onclick="showDetail('pl')">
+              <span class="stage-icon">🏠</span>
+              <div class="stage-name">Placement</div>
+              <div class="stage-analogy">Assign buildings to plots</div>
+            </div>
+            <div class="stage-card s-coral" onclick="showDetail('cts')">
+              <span class="stage-icon">🕐</span>
+              <div class="stage-name">Clock Tree (CTS)</div>
+              <div class="stage-analogy">City-wide sync clock</div>
+            </div>
+            <div class="stage-card s-coral" onclick="showDetail('rt')">
+              <span class="stage-icon">🛣️</span>
+              <div class="stage-name">Routing</div>
+              <div class="stage-analogy">Roads, pipes &amp; cables</div>
+            </div>
+            <div class="stage-card s-coral" onclick="showDetail('sta')">
+              <span class="stage-icon">⏱️</span>
+              <div class="stage-name">Timing (STA)</div>
+              <div class="stage-analogy">Every commute on time?</div>
+            </div>
+            <div class="stage-card s-coral" onclick="showDetail('pv')">
+              <span class="stage-icon">✅</span>
+              <div class="stage-name">Verification (DRC/LVS)</div>
+              <div class="stage-analogy">Final building inspection</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tapeout -->
+        <div class="arrow-col" style="height:28px;display:flex;align-items:center;justify-content:center;width:100%">
+          <div class="arrow-down"></div>
+        </div>
+        <div class="flow-row">
+          <div class="stage-card s-green-m" onclick="showDetail('to')">
+            <span class="stage-icon">🏭</span>
+            <div class="stage-name">Tapeout → Foundry</div>
+            <div class="stage-analogy">Breaking ground — construction begins. No changes allowed.</div>
+            <span class="stage-badge">$5–50M · 3–4 months</span>
+          </div>
+        </div>
+
+        <div class="divider-line"></div>
+
+        <!-- PPA -->
+        <div class="section-label">The Eternal Trade-off — PPA Triangle</div>
+        <div class="ppa-row">
+          <div class="ppa-card s-blue" onclick="showDetail('ppa')">
+            <span class="ppa-icon">⚡</span>
+            <div class="ppa-name" style="color:#B5D4F4">Performance</div>
+            <div class="ppa-desc" style="color:#85B7EB">City speed</div>
+          </div>
+          <div class="ppa-vs">vs</div>
+          <div class="ppa-card s-amber-m" onclick="showDetail('ppa')">
+            <span class="ppa-icon">🔋</span>
+            <div class="ppa-name" style="color:#FAC775">Power</div>
+            <div class="ppa-desc" style="color:#EF9F27">Electricity bill</div>
+          </div>
+          <div class="ppa-vs">vs</div>
+          <div class="ppa-card s-green-m" onclick="showDetail('ppa')">
+            <span class="ppa-icon">📐</span>
+            <div class="ppa-name" style="color:#C0DD97">Area</div>
+            <div class="ppa-desc" style="color:#97C459">Land cost</div>
+          </div>
+        </div>
+
+        <!-- Legend -->
+        <div class="legend-row">
+          <div class="legend-item"><div class="legend-dot" style="background:#7F77DD"></div>Planning</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#1D9E75"></div>Front-end</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#378ADD"></div>Verification</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#BA7517"></div>Synthesis</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#D85A30"></div>Physical</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#639922"></div>Manufacturing</div>
+        </div>
+      </div>
+
+      <!-- DETAIL PANEL -->
+      <div class="detail-panel" id="detailPanel">
+        <button class="detail-close" onclick="closeDetail()">✕ Close</button>
+        <h3 id="d-title"></h3>
+        <div id="d-body"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 5: CAREERS -->
+  <div class="section-block">
+    <span class="block-tag">// Section 05</span>
+    <h2 class="block-title">What does a VLSI engineer actually do?</h2>
+    <div class="block-divider"></div>
+
+    <p>VLSI is not one job — it's an entire ecosystem of specialised roles. Every stage of the design flow has dedicated engineers. Here are the main career paths inside VLSI:</p>
+
+    <div class="career-grid">
+      <div class="career-card">
+        <span class="career-icon">✏️</span>
+        <h4>RTL Design Engineer</h4>
+        <p>Writes the hardware description code (Verilog/VHDL) that defines chip behaviour. The architect of the logic.</p>
+      </div>
+      <div class="career-card">
+        <span class="career-icon">🔬</span>
+        <h4>Verification Engineer</h4>
+        <p>Tests the design by writing thousands of test cases. Highest demand role in VLSI — 60-70% of project time.</p>
+      </div>
+      <div class="career-card">
+        <span class="career-icon">🗺️</span>
+        <h4>Physical Design Engineer</h4>
+        <p>Converts the logical design into actual physical layout — placement, routing, timing closure.</p>
+      </div>
+      <div class="career-card">
+        <span class="career-icon">📊</span>
+        <h4>DFT Engineer</h4>
+        <p>Ensures every manufactured chip can be tested. Inserts scan chains and BIST structures into the design.</p>
+      </div>
+      <div class="career-card">
+        <span class="career-icon">⏱️</span>
+        <h4>STA / Timing Engineer</h4>
+        <p>Analyses all timing paths in the chip to ensure data arrives correctly at every clock edge.</p>
+      </div>
+      <div class="career-card">
+        <span class="career-icon">⚡</span>
+        <h4>Analog / Mixed-Signal Engineer</h4>
+        <p>Designs the real-world interfaces — ADCs, DACs, PLLs, power management. Works at physics level.</p>
+      </div>
+    </div>
+
+    <div class="callout callout-fun" style="margin-top:1.5rem">
+      <span class="callout-label">💡 Where to start as an ECE student</span>
+      <p>Start with <strong>Verilog HDL</strong> — the language of hardware design. Once you understand how hardware description differs from software programming (parallel execution vs sequential), the rest of VLSI will click. Tools like <em>ModelSim</em> and <em>Xilinx Vivado</em> let you simulate and test your designs for free on any laptop.</p>
+    </div>
+  </div>
+
+  <!-- SECTION 6: KEY TAKEAWAYS -->
+  <div class="section-block">
+    <span class="block-tag">// Section 06</span>
+    <h2 class="block-title">Key Takeaways</h2>
+    <div class="block-divider"></div>
+
+    <div class="takeaway-grid">
+      <div class="takeaway-card">
+        <div class="takeaway-num">01</div>
+        <div>
+          <h4>VLSI = Billions of transistors on one chip</h4>
+          <p>It's the technology behind every modern electronic device — from your phone to a satellite.</p>
+        </div>
+      </div>
+      <div class="takeaway-card">
+        <div class="takeaway-num">02</div>
+        <div>
+          <h4>Design follows a strict flow</h4>
+          <p>Spec → RTL → Verification → Synthesis → Physical Design → Tapeout. Each stage builds on the last.</p>
+        </div>
+      </div>
+      <div class="takeaway-card">
+        <div class="takeaway-num">03</div>
+        <div>
+          <h4>Verification dominates effort</h4>
+          <p>60–70% of total project time is spent testing the design before a single transistor is manufactured.</p>
+        </div>
+      </div>
+      <div class="takeaway-card">
+        <div class="takeaway-num">04</div>
+        <div>
+          <h4>Hardware thinks differently</h4>
+          <p>Unlike software (sequential steps), hardware runs everything in parallel — simultaneously. This mental shift is everything.</p>
+        </div>
+      </div>
+      <div class="takeaway-card">
+        <div class="takeaway-num">05</div>
+        <div>
+          <h4>Tapeout is irreversible</h4>
+          <p>Once the design goes to the foundry, there are no patches or updates. A single bug can cost millions.</p>
+        </div>
+      </div>
+      <div class="takeaway-card">
+        <div class="takeaway-num">06</div>
+        <div>
+          <h4>PPA is every engineer's battle</h4>
+          <p>Performance, Power, and Area — you can optimise two, but always at the expense of the third.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="article-cta">
+    <h3>Want to go deeper into VLSI?</h3>
+    <p>I cover Verilog HDL, FPGA design, and hands-on digital electronics in my Learn section — all free, all beginner-friendly.</p>
+    <a href="mekatronics.html#learn" class="btn-primary">Explore All Lessons</a>
+    <a href="mekatronics.html#workwithme" class="btn-outline">Get Project Support</a>
+  </div>
+
+</div><!-- end article-body -->
+
+<script>
+// Reading progress bar
+window.addEventListener('scroll', function() {
+  var docH = document.documentElement.scrollHeight - window.innerHeight;
+  var pct = (window.scrollY / docH) * 100;
+  document.getElementById('readingBar').style.width = pct + '%';
+});
+
+// Stage detail data - expanded for beginners
+var data = {
+  spec: {
+    title: "📋 Specification & Architecture — The City Masterplan",
+    body: "<p>Before a single line of code is written or a gate is designed, engineers answer one fundamental question: <strong>What must this chip do?</strong></p><p>Just like a city planner defines the population target, transport needs, hospital locations, and industrial zones before drawing any building — VLSI architects define the chip's requirements: How fast must it run? (clock frequency) How much power can it consume? (milliwatts budget) What specific functions must it perform? (feature list) How large can the chip be? (area budget)</p><p>This produces a <em>specification document</em> — not a design, not code. Just a contract between what the chip promises and what the engineers must deliver. <strong>Zero silicon decisions are made at this stage.</strong> Getting the spec wrong here means the entire multi-million dollar project fails at the end.</p>"
+  },
+  rtl: {
+    title: "✏️ RTL Design — Writing Hardware in Code",
+    body: "<p>RTL stands for <strong>Register Transfer Level</strong> — it describes how data moves between storage elements (registers) through logical operations. Engineers write this using hardware description languages like <em>Verilog</em> or <em>VHDL</em>.</p><p>Here's the <strong>most important mental shift</strong> for any beginner: hardware is NOT like software. In Python, you write steps that execute one after another: Step 1, Step 2, Step 3. In hardware, <strong>everything runs simultaneously.</strong> Every block of logic you describe is happening in parallel — like a restaurant kitchen where all chefs cook their dishes at the same time, not one chef doing everything sequentially.</p><p>RTL is the architect's blueprint — it precisely describes the behaviour of each block of the chip without yet specifying exact transistors or physical layout. A CPU core, a memory controller, a GPU shader — all start as RTL code.</p>"
+  },
+  dv: {
+    title: "🔬 Design Verification — Testing Before a Single Transistor Exists",
+    body: "<p>This is the most misunderstood and most important stage. <strong>Before manufacturing a single chip, engineers simulate and test it completely on a computer.</strong></p><p>Think of it like this: before building a bridge, civil engineers run thousands of computer simulations — earthquake loads, traffic patterns, wind speeds, metal fatigue — testing every scenario imaginable. DV engineers do the same for chips, but the number of possible scenarios is astronomically larger.</p><p>A modern chip might have <em>2^(billion)</em> possible states. You cannot test them all — so verification engineers write intelligent test cases (called testbenches) that cover the most critical scenarios, edge cases, and random combinations. <strong>This is why DV consumes 60–70% of the entire project's time and workforce</strong> — a chip can fail in far more ways than it can succeed.</p><p>Tools like ModelSim, VCS, and Questa are used for simulation. More advanced techniques include Formal Verification — using mathematical proofs to guarantee certain properties of the design.</p>"
+  },
+  syn: {
+    title: "🏗️ Logic Synthesis — From Behaviour to Gates",
+    body: "<p>The RTL code says <em>what</em> to do — synthesis determines <em>how</em> to do it using actual logic gates (AND, OR, NOT, flip-flops) from a specific technology library.</p><p>Imagine your blueprint says 'build a hospital.' The contractor now needs the exact materials list: 50,000 bricks, 200 steel beams, 8km of electrical wiring, 3 elevators. Logic synthesis converts the high-level RTL description into a <em>gate-level netlist</em> — a list of specific logic cells and how they connect.</p><p>The synthesis tool tries to simultaneously optimise three things — timing (the 'deadline'), area (the 'land budget'), and power (the 'electricity budget'). These are the three corners of the <strong>PPA Triangle</strong>, and they always conflict. Making the design faster usually requires more gates (more area) and more switching (more power). There is no free lunch.</p>"
+  },
+  dft: {
+    title: "🔌 Design for Test — How Do You Test Something You Can't See?",
+    body: "<p>Here's the problem: a manufactured chip has 10 billion transistors sealed inside silicon. You cannot see them. You cannot probe them individually. How do you verify the chip works correctly after manufacturing?</p><p>DFT engineers solve this by <strong>building testing infrastructure into the chip itself during design.</strong> The main technique is <em>Scan Chain insertion</em> — think of it as adding a special inspection port to every building in the city. Inspectors can plug in, read the internal state, change it, and verify the result — without opening the walls.</p><p>Scan chains link all the flip-flops (storage elements) inside the chip into a long serial chain. During testing, test equipment can shift data in, apply a clock cycle, and shift the result out. This allows testing every single flip-flop in a huge chip using only a few external pins. <strong>Without DFT, manufactured chips cannot be reliably tested at scale.</strong></p>"
+  },
+  fp: {
+    title: "🗺️ Floorplan — Dividing the Silicon Into Zones",
+    body: "<p>Physical design begins with floorplanning — dividing the chip die into functional regions before placing any individual component.</p><p>Just like a city planner zones land before any building is constructed (industrial here, commercial there, residential elsewhere, power substation at the edge), the floorplan engineer decides: the CPU core goes in quadrant 1, memory blocks along the left edge, I/O pads around the perimeter, power rings along the boundary.</p><p><strong>A bad floorplan creates unsolvable problems downstream.</strong> If a high-power computation block is placed far from the power supply rails, the voltage drops significantly across the wire — creating <em>IR drop</em> that slows down the entire chip. If two blocks that communicate constantly are placed far apart, the wires between them are too long to meet timing. Floorplan decisions made on Day 1 echo through every stage that follows.</p>"
+  },
+  pl: {
+    title: "🏠 Placement — Every Gate Gets a Precise Location",
+    body: "<p>After the zones are defined, each individual logic gate from the netlist (potentially hundreds of millions of gates) is assigned a precise physical location on the chip.</p><p>This is like assigning every building to a specific plot within each zone. The hospital goes on plot 47B, the school on plot 12A, the fire station strategically close to the residential zone.</p><p>Placement tools optimise three objectives simultaneously: <em>Timing</em> (gates that frequently talk to each other should be close — long wires = slow signals), <em>Congestion</em> (avoid creating areas so packed with gates that routing wires later becomes impossible), and <em>Power</em> (high-activity gates placed near power rails to reduce IR drop). The quality of placement directly determines how difficult timing closure will be in later stages — a beautifully placed design often closes timing smoothly; a poor placement may never close at all.</p>"
+  },
+  cts: {
+    title: "🕐 Clock Tree Synthesis — Keeping the Entire City Perfectly in Sync",
+    body: "<p>In a digital chip, every action is synchronised to a clock signal — a pulse that beats billions of times per second. At 3GHz, one clock cycle is 0.33 nanoseconds — shorter than the time light travels 10 centimetres.</p><p>The clock signal must reach <strong>every single flip-flop</strong> in the chip at the exact same time. If the clock arrives 0.1ns late to one region, data in that region will be processed out of sync with the rest of the chip — causing incorrect results or complete failure.</p><p>CTS designs a tree-shaped network of clock buffers that distribute the clock signal across the chip with <em>balanced delay</em> — like a perfectly designed irrigation network where every field receives exactly the same water flow at the same time. <strong>The difference in clock arrival time between different parts of the chip is called clock skew</strong>, and minimising it is the CTS engineer's primary mission. Modern chips have clocks distributed across millions of flip-flops with skew controlled to within tens of picoseconds.</p>"
+  },
+  rt: {
+    title: "🛣️ Routing — Connecting Everything With Metal Wires",
+    body: "<p>After every gate is placed, the routing tool connects them all with metal wires — following the connections specified in the netlist. A modern chip has <strong>10 to 15 stacked metal layers</strong>, each running in perpendicular directions, like a 3D highway system.</p><p>Lower metal layers carry short, local connections (neighbourhood streets). Middle layers carry medium-range signals (city roads). Upper layers carry long global signals and power (motorways and power transmission lines). The top two layers are usually dedicated to power distribution — they're thicker to handle higher current.</p><p>The routing problem is mathematically <em>NP-hard</em> — meaning no algorithm can guarantee the perfect solution in reasonable time. Routing tools use sophisticated heuristics and billions of computations to find near-optimal solutions. A modern chip might have <strong>kilometres of metal wire</strong> crammed into a 1cm² die — routed across multiple layers with nanometre precision.</p>"
+  },
+  sta: {
+    title: "⏱️ Static Timing Analysis — Guaranteeing Every Signal Arrives On Time",
+    body: "<p>After routing, every wire has a known physical length and therefore a known signal propagation delay. STA analyses <strong>every single timing path</strong> in the chip to verify that data arrives correctly at each flip-flop's input before the clock edge.</p><p>There are two types of timing violations engineers hunt for:</p><p><strong>Setup Violation:</strong> The train departs at 9:00am. Your commute takes 65 minutes, and you left home at 8:00am. You arrive at 9:05am — the train is gone. In chip terms: data arrives at the flip-flop input after the clock edge has already passed. The data is missed. Solution: shorten the path (less logic, shorter wire) or lower the clock frequency.</p><p><strong>Hold Violation:</strong> The outgoing train left at 9:00am. An incoming train arrives at 9:01am on the same platform, colliding with passengers still boarding. In chip terms: data from one clock cycle arrives so fast that it corrupts the previous cycle's value still sitting in the flip-flop. Solution: insert delay buffers to slow the fast path down.</p><p>A chip with 500 million flip-flops might have <strong>billions of timing paths</strong>. STA tools check every single one — this is why 'timing closure' is one of the hardest challenges in chip design.</p>"
+  },
+  pv: {
+    title: "✅ Physical Verification — The Final Safety Inspection",
+    body: "<p>Before the design goes to the foundry, two critical checks ensure the physical layout is both manufacturable and functionally correct:</p><p><strong>DRC — Design Rule Check</strong> (Building Code Compliance): Every foundry (TSMC, Samsung, Intel Foundry) has a set of manufacturing rules — minimum wire widths, minimum spacing between wires, maximum current density, antenna rules. These rules exist because of physical limitations in the photolithography process. DRC verifies that <em>every single shape</em> in the layout follows these rules. One DRC violation can make an entire chip layer unprintable.</p><p><strong>LVS — Layout Versus Schematic</strong> (Utility Connection Check): This verifies that the physical layout (what you've drawn) <em>exactly matches</em> the original netlist (what you intended to design). Every transistor connection, every wire, every power pin must match. A missing connection between two logic gates, or an accidental short circuit between two wires, shows up here. <strong>One missed LVS error shipped to the foundry = a completely non-functional chip and millions of dollars lost.</strong></p>"
+  },
+  to: {
+    title: "🏭 Tapeout — The Point of No Return",
+    body: "<p>Tapeout is simultaneously the most exciting and most terrifying moment in chip design. It means the verified layout file (GDSII format) is sent to the semiconductor foundry. <strong>From this moment, no changes are possible.</strong></p><p>The foundry creates photomasks — precision optical tools used to 'print' the circuit patterns onto silicon wafers using UV or EUV light. Each wafer might contain hundreds of copies of the chip. The entire manufacturing process takes <strong>3 to 4 months</strong> and costs anywhere from <em>$5 million at mature process nodes to $50 million or more at 3nm.</em></p><p>This is why every single verification stage upstream exists. A bug found in RTL simulation costs an engineer a few hours. The same bug found after tapeout costs millions of dollars and months of schedule. Intel's famous Pentium FDIV bug in 1994 cost them $475 million in chip replacements — from a single division error that slipped through verification.</p><p>When the chips come back from the foundry, they go through rigorous testing (using those DFT scan chains inserted earlier). Chips that pass go into products. Chips that fail are discarded. The percentage that pass is called the <em>yield</em> — and improving yield is one of the most valuable skills in the industry.</p>"
+  },
+  ppa: {
+    title: "⚡🔋📐 The PPA Triangle — Every VLSI Engineer's Eternal Dilemma",
+    body: "<p>Every single decision in chip design is constrained by three competing objectives — Performance, Power, and Area. <strong>You can always improve one or two, but always at the cost of the third.</strong> No exceptions.</p><p><em>Performance ↑ means</em> → more complex logic gates (Area ↑) + more switching activity (Power ↑). A faster city needs wider roads and more traffic signals — which require more land and more electricity.</p><p><em>Power ↓ means</em> → lower supply voltage → slower transistors (Performance ↓), or fewer active units (Performance ↓). A city that reduces its electricity bill dims its streetlights and slows its trains.</p><p><em>Area ↓ means</em> → fewer resources, smaller wires, slower signals (Performance ↓) + more current density (Power ↑ per unit area). A smaller city has narrower roads and traffic jams.</p><p><strong>Real-world example:</strong> Apple's M-series chips are famous for exceptional PPA balance — they achieve high performance with remarkably low power. This is not magic — it's thousands of engineers spending years optimising every stage of this design flow. The PPA triangle governs every decision they made.</p>"
+  }
+};
+
+function showDetail(key) {
+  var d = data[key];
+  if (!d) return;
+  var panel = document.getElementById('detailPanel');
+  document.getElementById('d-title').innerHTML = d.title;
+  document.getElementById('d-body').innerHTML = d.body;
+  panel.classList.add('visible');
+  setTimeout(function() {
+    panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }, 100);
+}
+
+function closeDetail() {
+  document.getElementById('detailPanel').classList.remove('visible');
+}
+</script>
+</body>
+</html>
